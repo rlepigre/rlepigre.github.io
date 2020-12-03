@@ -1,0 +1,392 @@
+══════════════════════════════════════════════════════════════════════════════
+
+
+          Termination checking using well-founded typing derivations
+          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                  by Rodolphe Lepigre (Inria, LSV, CNRS, ⋯)
+
+
+Checking the termination of programs is a very difficult and important problem
+in contexts where consistency is critical (e.g., in proof assistants). One way
+of ensuring termination is to rely on well-known, Ramsey-based techniques such
+as the size change principle of Lee, Jones and Ben Amram. They roughly consist
+in analysing the recursive calls throughout programs,  to ensure that there is
+some structural decrease (usually based on the subterm order). In this talk, I
+will present a new technique based on circular typing derivations, in which we
+rather analyse the “call structure” of circular typing derivations (also using
+a variant of the size change principle).
+
+This is joint work with Christophe Raffalli.
+
+Links:
+ - https://lepigre.fr/files/docs/lepigre2017_subml.pdf (paper)
+ - https://github.com/rlepigre/subml (git repository of SubML)
+ - https://github.com/rlepigre/pml   (git repository of PML₂ )
+
+
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+                                 Introduction
+                                 ━━━━━━━━━━━━
+
+Termination checking is useful:
+ - Termination is (generally) desirable for programs.
+ - It is required for the consistency of non-trivial proof systems.
+
+There are several techniques:
+ - Keywords: ranking function, dependency pair, sized types, ⋯
+ - Many techniques are based (more or less explicitely) on Ramsey's theorem.
+ - Example: the size change principle of Lee, Jones and Ben Amram.
+
+Idea of this work:
+ - Use Ramsey-based techniques in a singular way.
+ - The termination argument is not directly related to terms.
+ - We use circular typing derivations.
+
+Advantages of our approach:
+ - Well-typed programs are terminating.
+ - The termination argument is local.
+ - We achieve compositionality through size annotations.
+
+     map   : ∀α, (A ⇒ B) ⇒ List(α,A) ⇒ List(α,B)
+     split : ∀α, (A ⇒ Bool) ⇒ List(α,A) ⇒ List(α,A) × List(α,A)
+                                                                          1/12
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+                            Syntax of the language
+                            ━━━━━━━━━━━━━━━━━━━━━━
+
+Terms:
+
+  t,u ∷= x | λx.t | t u                       (usual λ-calculus)
+       | 0 | t+1 | [t | 0 → u₀ | x+1 → u₁]    (zero, successor, case analysis)
+       | ∙∈A                                  (some element of type A)
+
+Types:
+
+  A,B ∷= N(s)                                 (sized natural numbers)
+       | A ⇒ B                                (function type)
+
+Ordinals (sizes):
+
+  s,o ∷= α                                    (ordinal variable)
+       | ω                                    (limit ordinal)
+       | ∙<s                                  (some ordinal less than o)
+
+
+
+Remark: “∙∈A” never appears in user terms, only ordinal “ω” in user types.
+───────
+                                                                          2/12
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+                          Typing rules of the system
+                          ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+“Usual” rules of the λ-calculus:
+
+      t : A ⇒ B   u : A            t[x ≔ ∙∈A] : B
+     ─────────────────── ⇒e       ──────────────── ⇒i       ───────── ∙
+           t u : B                  λx.t : A ⇒ B             ∙∈A : A
+
+Rules to work with natural numbers:
+
+                 t : N(∞)        t : N(s)    u₁ : A    u2[k ≔ ∙∈N(∙<s)] : A
+ ────────── 0  ──────────── +1  ──────────────────────────────────────────── +
+  0 : N(∞)      t+1 : N(∞)              [t | 0 → u₁ | k+1 → u₂] : A
+
+
+A tiny bit of subtyping:         t : N(s)
+                                ────────── ⊆
+                                 t : N(∞)
+
+
+Remark: more general rules and more subtyping would improve expressivity.
+───────
+                                                                          3/12
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+                          Recursion using equations
+                          ━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+id ≔ λn.[n | 0 → 0 | k+1 → (id n)+1]
+
+plus ≔ λn.λm.[n | 0 → m | k+1 → (plus k m)+1]
+
+mult ≔ λn.λm.[n | 0 → 0 | k+1 → plus m (mult n k)]
+
+is_evn ≔ λn.[n | 0 → T | k+1 → ¬(is_odd k)]
+is_odd ≔ λn.[n | 0 → F | k+1 → ¬(is_evn k)]
+T      ≔ 0+1
+F      ≔ 0
+¬      ≔ λn.[n | 0 → T | _+1 → F]
+
+loop ≔ λx.loop x
+
+
+Remark: reduction strategy is arbitrary, with toplevel unfolding only.
+───────
+
+Remark: we could use a fixed point combinator as well (see SubML / PML₂).
+───────
+                                                                          4/12
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+                          Circular typing derivations
+                          ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Circularity is introduced by unfolding definitions:
+
+                          “definition of f” : A
+                         ─────────────────────── ≔
+                                  f : A
+
+We introduce “generalized” typing derivations:
+
+                             ∀α₁ α₂ ⋯ [t : A]
+                          ────────────────────── G
+                           t : A[α₁≔s₁,α₂≔s₂,⋯]
+
+We construct infinite (circular) derivations using the induction rule:
+                         ┌                       ┐
+                         │────────────────── R[k]│
+                         │ ∀α₁ α₂ ⋯ [t : A]      │
+                         └                       ┘
+                                  ⋮ ⋮ ⋮
+
+                                  t : A
+                            ────────────────── I[k]
+                             ∀α₁ α₂ ⋯ [t : A]                             5/12
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+                 Example of “good” circular typing derivation
+                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                         ─────────────────────── R[0]  ─────────────────────┐
+                          ∀α [id : N(α) ⇒ N(∞)]                             │
+                         ─────────────────────── G  ──────────────────── ∙  │
+                           id : N(∙<α) ⇒ N(∞)        ∙∈N(∙<α)) : N(∙<α)     │
+   ─────────────── ∙      ────────────────────────────────────────────── ⇒e │
+    ∙∈N(α) : N(α)                     id ∙∈N(∙<α)) : N(∞)                   │
+   ─────────────── ⊆  ────────── 0  ──────────────────────── +1             │
+    ∙∈N(α) : N(∞)      0 : N(∞)      (id ∙∈N(∙<α))+1 : N(∞)                 │
+   ────────────────────────────────────────────────────────── +             │
+           [∙∈N(α) | 0 → 0 | k+1 → (id k)+1] : N(∞)                         │
+         ─────────────────────────────────────────────── ⇒i                 │
+          λn.[n | 0 → 0 | k+1 → (id k)+1] : N(α) ⇒ N(∞)                     │
+         ─────────────────────────────────────────────── ≔                  │
+                         id : N(α) ⇒ N(∞)                                   │
+   α is free above → ─────────────────────── I[0]  ──────── “cycle” ────────┘
+                      ∀α [id : N(α) ⇒ N(∞)]
+                     ─────────────────────── G
+                        id : N(∞) ⇒ N(∞)
+  
+Remark: we have a decrease since “∙<α < α”.
+───────
+                                                                          6/12
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+                 Example of “bad” circular typing derivation
+                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+              ───────────────────────── R[0]  ────────────────────────┐
+               ∀α [loop : N(α) ⇒ N(∞)]                                │
+              ───────────────────────── G  ─────────────── ∙          │
+                 loop : N(α) ⇒ N(∞)         ∙∈N(α) : N(α)             │
+                ────────────────────────────────────────── ⇒e         │
+                            loop ∙∈N(α) : N(∞)                        │
+                         ───────────────────────── ⇒i                 │
+                          λn.loop n : N(α) ⇒ N(∞)                     │
+                         ───────────────────────── ≔                  │
+                             loop : N(α) ⇒ N(∞)                       │
+        α is free above → ───────────────────────── I[0]  ── “cycle” ─┘
+                           ∀α [loop : N(α) ⇒ N(∞)]
+                          ───────────────────────── G
+                             loop : N(∞) ⇒ N(∞)
+ 
+
+
+Remark: we have no decrease as it is false that “α < α”.
+───────
+
+                                                                          7/12
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+                        Call graph and well-foundedness
+                        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A derivation is formed of a set of minimal blocks:
+
+
+                            ────────────────── R[j] ← points to block B[j]
+                             ∀β₁ β₂ ⋯ [u : B]       
+                 ┌─ ─ ─ ─ ────────────────────── G ─ ─ ─ ─┐
+                           u : B[β₁≔s₁,β₂≔s₂,⋯]
+                 │                                        │
+
+                 │              ⋮     ⋮     ⋮             │ ← block B[i]
+
+                 │                                        │
+                                    t : A
+                 └ ─ ─ ─────────────────────────── I[i] ─ ┘
+                             ∀α₁ α₂ ⋯ [t : A]
+
+
+The intuition is that block B[i] “calls” block B[j]:
+
+                        B[i](α₁,α₂,⋯) → B[j](s₁,s₂,⋯)
+
+                                                                          8/12
+══════════════════════════════════════════════════════════════════════════════
+══   ───────────────────────────────────── I[0]  ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐
+      ∀α₁ ∀α₂ [plus : N(∞) ⇒ N(∞) ⇒ N(∞)]          ───────────────────── ∙
+┌─ ─ ───────────────────────────────────── G ─ ─ ┘  ∙∈N(∙<α₁) : N(∙<α₁)      │
+         plus : N(∙<α₁) ⇒ N(α₂) ⇒ N(∞)         ┌──────────────────────── ⇒e
+│       ───────────────────────────────────────┘   ────────────────── ∙      │
+             plus ∙∈N(∙<α₁) : N(α₂) ⇒ N(∞)          ∙∈N(α₂) : N(α₂)
+│           ──────────────────────────────────────────────────────── ⇒e      │
+                        plus ∙∈N(∙<α₁) ∙∈N(α₂) : N(∞)
+│                    ─────────────────────────────────── +1                  │
+                      (plus ∙∈N(∙<α₁) ∙∈N(α₂))+1 : N(∞)
+│                ┌────────────────────────────────────── +                   │
+                 └────────────────────────────────────────────────┐
+│  ───────────────── ∙  ───────────────── ∙                       │          │
+    ∙∈N(α₁) : N(α₁)      ∙∈N(α₂) : N(α₂)                          │
+│  ───────────────── ⊆  ───────────────── ⊆                       │          │
+    ∙∈N(α₁) : N(∞)       ∙∈N(α₂) : N(∞)                           │
+│  ───────────────────────────────────────────────────────────────┘          │
+      [∙∈N(α₁) | 0 → ∙∈N(α₂) | k+1 → (plus k ∙∈N(α₂))+1] : N(∞)
+│   ────────────────────────────────────────────────────────────── ⇒i        │
+      λm.[∙∈N(α₁) | 0 → m | k+1 → (plus k m)+1] : N(α₂) ⇒ N(∞)
+│  ─────────────────────────────────────────────────────────────── ⇒i        │
+    λn.λm.[n | 0 → m | k+1 → (plus k m)+1] : N(α₁) ⇒ N(α₂) ⇒ N(∞)
+│  ─────────────────────────────────────────────────────────────── ≔         │
+                     plus : N(α₁) ⇒ N(α₂) ⇒ N(∞)                             
+└─ ─ ─ ─ ─ ─ ─ ────────────────────────────────────── I[0] ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘
+                ∀α₁ α₂ [plus : N(α₁) ⇒ N(α₂) ⇒ N(∞)]
+               ─────────────────────────────────────── G                  9/12
+══════════            plus : N(∞) ⇒ N(∞) ⇒ N(∞)                     ══════════
+══════════════════════════════════════════════════════════════════════════════
+
+                    Example with [is_even] (on the board)
+                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+
+
+
+Definitions:
+  is_evn ≔ λn.[n | 0 → T | k+1 → ¬(is_odd k)]
+  is_odd ≔ λn.[n | 0 → F | k+1 → ¬(is_evn k)]
+
+
+
+
+Assuming the following:
+  T : B     ≔ 0+1
+  F : B     ≔ 0
+  ¬ : B ⇒ B ≔ λn.[n | 0 → T | _+1 → F]
+where B ≔ N(∞)
+
+
+
+
+
+                                                                         10/12
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+                          Elements of the semantics
+                          ━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+We denote:
+ - W the set of normalizing programs.
+ - W₀ the set of “neutral” terms (variables, ...).
+
+
+Interpretation of types:
+ - ⟦A ⇒ B⟧ ≔ ⟦A⟧ → ⟦B⟧
+ - ⟦N(s)⟧  ≔ U(o<⟦s⟧) {t ∈ W | ∀Φ, ∀u₀ ∈ Φ, ∀u₁ ∈ ⟦N(o)⟧ → Φ,
+                                 [t | 0 → u₀ | k+1 → u₁ k] ∈ Φ}
+ - Φ → Ψ   ≔ {t ∈ W | ∀u ∈ Φ, t u ∈ Ψ}
+
+
+Interpretation of terms:             │ Interpretation of ordinals:
+ - ⟦∙∈A⟧ = “some t ∈ ⟦A⟧”            │  - ⟦∙<s⟧ = “some o < ⟦s⟧ if any (or 0)”
+ - ⟦t u⟧ = ⟦t⟧ ⟦u⟧                   │  - ⟦ω⟧   = ω
+ - ⋯                                 │  - ⋯
+
+
+Theorem: if t : A is derivable, then ⟦t⟧ ∈ ⟦A⟧ ⊆ W.
+────────
+                                                                         11/12
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+                       Correctness and take-away message
+                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+Proof of correctness:
+ - ⟦A⟧ only contains terminating programs (for all type A).
+ - Our typing rules are (locally) adequate with the semantics.
+ - Assume that there is a correct typing derivation not satisfying SCP.
+ - Build an infinite, decreasing sequence of ordinals.
+
+
+
+Take-away message:
+ - Size analysis is not limited to the syntax of programs.
+ - We analyse the “call structure” of circular typing derivations.
+
+
+
+A general circular proof framework:
+ - Not limited to termination analysis.
+ - Also used for subtyping with (co-)inductive types in SubML and PML₂.
+ - Other applications are probably possible (modal μ-calculus, ...).
+
+
+                                                                         12/12
+══════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════
+
+
+
+
+               _   _                 _                      
+              | | | |               | |                     
+              | |_| |__   __ _ _ __ | | ___   _  ___  _   _ 
+              | __| '_ \ / _` | '_ \| |/ / | | |/ _ \| | | |
+              | |_| | | | (_| | | | |   <| |_| | (_) | |_| |
+               \__|_| |_|\__,_|_| |_|_|\_\\__, |\___/ \__,_|
+                                           __/ |            
+                                          |___/             
+
+
+
+To learn more: https://lepigre.fr/files/docs/lepigre2017_subml.pdf
+
+Prototypes based on the presented ideas:
+ - SubML (https://github.com/rlepigre/subml)
+ - PML₂  (https://github.com/rlepigre/pml  )
+
+
+
+
+
+
+══════════════════════════════════════════════════════════════════════════════

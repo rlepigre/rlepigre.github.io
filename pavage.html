@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pavages</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    body, html {
+      padding    : 0px;
+      margin     : 0px;
+      text-align : center;
+    }
+
+    p {
+      max-width   : 800px;
+      padding-top : 30px;
+      margin      : auto;
+      text-align  : justify;
+    }
+
+    h5 {
+      padding-top : 40px;
+      font-size   : 10px;
+    }
+
+    canvas {
+      cursor   : none;
+      outline  : none;
+      margin   : auto;
+    }
+  </style>
+  <script>
+    // Parameters
+    var cellH  = 30;
+    var cellW  = 30;
+    var pad    = 1;
+    var bg_color = "#BBBBBB";
+    var fg_color = "#666666";
+    var lavaboC  = "#222222";
+
+    // Game function
+    // Arguments:
+    //   - nbX, nbY : size of the grid
+    //   - can : id of the canvas to draw in
+    function grid_app(nbX, nbY, canvas){
+      // Canvas drawing
+      var can = document.getElementById(canvas);
+      var totalW = nbX * cellW;
+      var totalH = nbY * cellH;
+      can.width  = totalW;
+      can.height = totalH;
+      can.setAttribute('tabindex','0'); // makes canvas focusable
+      var ctx = can.getContext("2d");
+
+      var lavabo = (nbX * nbY) % 2 != 0;
+      var lavaboX = -1;
+      var lavaboY = -1;
+
+      if(lavabo){
+        lavaboX = Math.floor((Math.random() * nbX));
+        lavaboY = Math.floor((Math.random() * nbY));
+      }
+  
+      // State initialization
+      var is_free = new Array(nbX);
+      for(i = 0; i < nbX; i++){
+        is_free[i] = new Array(nbY);
+        for(j = 0; j < nbY; j++){
+          is_free[i][j] = true;
+        }
+      }
+      if(lavabo){
+        is_free[lavaboX][lavaboY] = false;
+      }
+      var orient = 0; // 0 is horizontal, other value is vertical
+  
+      var nb_tiles = 0
+      var tilex = [];
+      var tiley = [];
+      var tileo = [];
+      var tilec = [];
+  
+      // Coloring functions
+      function fill_cell(x, y, col){
+        ctx.fillStyle = col;
+        ctx.globalAlpha = 1.0;
+        xx = x * cellW + pad;
+        yy = y * cellH + pad;
+        ctx.fillRect(xx, yy, cellW - 2 * pad, cellH - 2 * pad);
+      }
+  
+      function draw_tile(x, y, orient, color, alpha){
+        ctx.fillStyle = color;
+        ctx.globalAlpha = alpha;
+        xx = x * cellW + pad;
+        yy = y * cellH + pad;
+        if(orient == 0)
+          ctx.fillRect(xx, yy, 2 * (cellW - pad), cellH - 2 * pad);
+        else
+          ctx.fillRect(xx, yy, cellW - 2 * pad, 2 * (cellH - pad));
+      }
+  
+      function update(){
+        ctx.fillStyle = "white";
+        ctx.globalAlpha = 1.0;
+        ctx.fillRect(0, 0, totalW, totalH);
+        for(i = 0; i < nbX; i++)
+          for(j = 0; j < nbY; j++)
+            fill_cell(i, j, bg_color);
+        for(i = 0; i < nb_tiles; i++)
+          draw_tile(tilex[i], tiley[i], tileo[i], tilec[i], 1.0);
+        if(lavabo){
+          fill_cell(lavaboX, lavaboY, lavaboC);
+        }
+      }
+      update(); // Initializing
+  
+      // Draw tile to grid
+      function add_tile(x, y, orient, col){
+        tilex[nb_tiles] = x;
+        tiley[nb_tiles] = y;
+        tileo[nb_tiles] = orient;
+        tilec[nb_tiles] = col;
+        nb_tiles = nb_tiles + 1;
+        is_free[x][y] = false;
+        if(orient == 0)
+          is_free[x + 1][y] = false;
+        else
+          is_free[x][y + 1] = false;
+      }
+  
+      function tile_clear(x, y, orient){
+        if(x >= nbX || x < 0 || y >= nbY || y < 0) return false;
+        if(orient == 0 && x >= nbX - 1) return false;
+        if(orient == 1 && y >= nbY - 1) return false;
+        if(orient == 0)
+          return is_free[x][y] && is_free[x+1][y];
+        else
+          return is_free[x][y] && is_free[x][y+1];
+      }
+  
+      // Handlers
+      function handleclick(e){
+        rect = can.getBoundingClientRect();
+        cx = e.clientX - rect.left;
+        cy = e.clientY - rect.top;
+  
+        x = Math.floor(cx / (totalW / nbX));
+        y = Math.floor(cy / (totalH / nbY));
+  
+        if(tile_clear(x, y, orient))
+          add_tile(x, y, orient, fg_color);
+        update();
+        draw_tile(x, y, orient, "red", 0.3);
+      }
+      can.addEventListener('mousedown', handleclick, false);
+  
+      var lastX = -1;
+      var lastY = -1;
+      function handlemove(e){
+        rect = can.getBoundingClientRect();
+        cx = e.clientX - rect.left;
+        cy = e.clientY - rect.top;
+  
+        x = Math.floor(cx / (totalW / nbX));
+        y = Math.floor(cy / (totalH / nbY));
+        lastX = x;
+        lastY = y;
+  
+        update();
+        if(tile_clear(x, y, orient))
+          draw_tile(x, y, orient, "green", 0.3);
+        else
+          draw_tile(x, y, orient, "red", 0.3);
+      }
+      can.addEventListener('mousemove', handlemove, false);
+  
+      function handleout(e){
+        update();
+        lastX = -1;
+        lastY = -1;
+      }
+      can.addEventListener('mouseout', handleout, false);
+
+      function handlein(e){
+        can.focus()
+      }
+      can.addEventListener('mouseover', handlein, false);
+  
+      function handlekeys(e){
+        var kcode = e.keyCode || e.which;
+  
+        if(kcode == 27){ // ESCAPE - reset
+          // Reinit
+          for(i = 0; i < nbX; i++)
+            for(j = 0; j < nbY; j++)
+              is_free[i][j] = true;
+          nb_tiles = 0;
+  
+          update();
+          if(lastX >= 0 && lastY >= 0)
+            draw_tile(lastX, lastY, orient, "green", 0.3);
+        } else if(kcode ==  82){ // R - rotate
+          orient = (orient + 1) % 2
+          update();
+          if(lastX >= 0 && lastY >= 0){
+            if(tile_clear(lastX, lastY, orient))
+              draw_tile(lastX, lastY, orient, "green", 0.3);
+            else
+              draw_tile(lastX, lastY, orient, "red", 0.3);
+          }
+        } else if(kcode == 85){ // U - undo
+          if(nb_tiles > 0){
+            x = tilex[nb_tiles - 1];
+            y = tiley[nb_tiles - 1];
+            o = tileo[nb_tiles - 1];
+            nb_tiles = nb_tiles - 1;
+            is_free[x][y] = true;
+            if(o == 0)
+              is_free[x + 1][y] = true;
+            else
+              is_free[x][y + 1] = true;
+            update();
+            if(lastX >= 0 && lastY >= 0){
+              if(tile_clear(lastX, lastY, orient))
+                draw_tile(lastX, lastY, orient, "green", 0.3);
+              else
+                draw_tile(lastX, lastY, orient, "red", 0.3);
+            }
+          }
+        }
+      }
+      can.addEventListener('keydown', handlekeys, false)
+    }
+  </script>
+</head>
+<body>
+  <h1>Atelier Maths à Modeler</h1>
+  <h2>Peut-on paver une salle de bains carrée avec des dominos ?</h1>
+
+  <p>
+  On considère une salle de bains carrée de côté n, et on se demande si
+  il est possible de la carreler en utilisant des dominos (des pièces de
+  taille 2 par 1). En particulier, on ne s'autorise ni découpe, ni
+  recouvrement de dominos.
+  </p>
+
+  <h3>Pavage d'une grille 8 x 8 avec des dominos</h3>
+  <h4>(Clic : placer, R : tourner, U : annuler, ESC : recommencer)</h4>
+  <canvas id="can8"></canvas><script>grid_app(8, 8, "can8");</script>
+
+  <p>
+  Dans le cas où la salle de bains comporte un nombre impair de cases,
+  on placera un lavabo sur une case fixée. On se demandera ensuite si
+  il est possible de carreler le reste de la pièce pour chaque position
+  possible du lavabo.
+  </p>
+
+  <h3>Pavage d'une grille 7 x 7 avec des dominos</h3>
+  <h4>(Clic : placer, R : tourner, U : annuler, ESC : recommencer)</h4>
+  <canvas id="can7"></canvas><script>grid_app(7, 7, "can7");</script>
+
+  <h5>
+  Atelier encadré en 2015 à l'école du Chat Perché du Bourget-du-Lac par<br/>
+  Marion Foare et Rodolphe Lepigre (doctorants), Tom Hirschowitz (tuteur),
+  Pascale Guillermin (professeur).
+  </h5>
+</body>
+</html>
