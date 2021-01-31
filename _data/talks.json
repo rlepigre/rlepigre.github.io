@@ -200,7 +200,7 @@
     "date": "22/02/2017",
     "where": "Saclay, France",
     "title": "PML2, Semantical Value Restriction & Pointed Subtyping",
-    "misc_talk": "Visit to the <a href=\"https://team.inria.fr/parsifal/\" class=\"text-danger\">Parsifal Team</a> (Inria Saclay)",
+    "misc_talk": "Visit to the <a href=\"https://team.inria.fr/parsifal/\">Parsifal Team</a> (Inria Saclay)",
     "urls": [
       { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Parsifal2017.pdf" }
     ]
@@ -274,7 +274,7 @@
     "date": "03/12/2014",
     "where": "Montevideo, Uruguay",
     "title": "Toward an Adequation Lemma for PML2",
-    "misc_talk": "Visit to the <a href=\"https://www.fing.edu.uy/~amiquel/logica/index.html\" class=\"text-danger\">Equipo de Lógica</a>, Facultad de Ingeniería, Udelar",
+    "misc_talk": "Visit to the <a href=\"https://www.fing.edu.uy/~amiquel/logica/index.html\">Equipo de Lógica</a>, Facultad de Ingeniería, Udelar",
     "urls": [
       { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Montevideo2014.pdf" }
     ]

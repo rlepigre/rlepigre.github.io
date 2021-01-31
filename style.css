@@ -2,10 +2,6 @@
   padding-top: 70px;
 }
 
-.bibtex {
-  user-select: all;
-}
-
 .maths {
   color: #007BFF;
 }
@@ -74,4 +70,8 @@ h1, h2 {
   background: #DC3545;
   opacity: 0.7;
   text-decoration: none;
+}
+
+a, a:hover {
+  color: #dc3545;
 }
