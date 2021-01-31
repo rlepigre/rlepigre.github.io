@@ -17,6 +17,15 @@ $(window).on('scroll', function() {
   }
 });
 
+$(window).on('load', function() {
+  var w = window.innerWidth
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
+  if (w < 450) {
+    $('.navbar-brand').addClass('small-brand')
+  }
+});
+
 // The following was borrowed on "css-tricks.com".
 $('a[href^="#"]:not([href^="#collapse"])').click(function(event) {
   // On-page links
