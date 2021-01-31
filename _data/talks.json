@@ -1,0 +1,294 @@
+[
+  {
+    "date": "22/01/2020",
+    "where": "New Orleans, USA",
+    "title": "The Future is Ours - Prophecy Variables in Separation Logic",
+    "paper_presentation": {
+      "paper_key": "JLPRTDJ2020",
+      "conference_name": "POPL conference",
+      "conference_url": "https://popl20.sigplan.org"
+    },
+    "urls": [
+      { "name": "Slides", "url": "https://docs.google.com/presentation/d/1KJB4ynz216BU9-XNgtfavUEh24fdlR8a3fPQKXBjSE0/edit?usp=sharing" },
+      { "name": "Video", "url": "https://youtu.be/6Xhhasl50YU" }
+    ]
+  },
+  {
+    "date": "28/10/2019",
+    "where": "Aarhus, Denmark",
+    "title": "Prophecy Variables in Separation Logic (Extending Iris with Prophecy Variables)",
+    "contributed_talk": {
+      "event_name": "Iris workshop",
+      "event_url": "https://iris-project.org/workshop-2019/"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Iris_Workshop2019.pdf" }
+    ]
+  },
+  {
+    "date": "20/09/2019",
+    "where": "Marseille, France",
+    "title": "A Practical Framework for Curry-Style Languages (Inspired by Realizability Semantics)",
+    "invitation": {
+      "event_name": "Realizability Workshop (CIRM)",
+      "event_url": "https://www.i2m.univ-amu.fr/perso/laura.fontanella/realizabilityworkshop2019/"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_CIRM2019.pdf" }
+    ]
+  },
+  {
+    "date": "16/09/2019",
+    "where": "Cachan, France",
+    "title": "Prophecy Variables in Separation Logic (Extending Iris with Prophecy Variables)",
+    "seminar": {
+      "seminar_name": "Deducteam seminar",
+      "institution": "ENS de Cachan"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Deducteam2019.pdf" }
+    ]
+  },
+  {
+    "date": "11/12/2018",
+    "where": "Nantes, France",
+    "title": "The PML₂ Language: Integrated Program Verification in ML",
+    "seminar": {
+      "seminar_name": "Gallinette seminar",
+      "institution": "Inria"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Gallinette2018.pdf" }
+    ]
+  },
+  {
+    "date": "03/12/2018",
+    "where": "Paris, France",
+    "title": "The PML₂ Language: Integrated Program Verification in ML",
+    "seminar": {
+      "seminar_name": "Prosecco seminar",
+      "seminar_url": "https://calendar.google.com/calendar/r/week/2018/12/3?eid=MDVrcDk3aG9mcDcwc3ZoZDE1bXE1cGZxNHUganVsb2I5ZXBlcGNobWE5MjNhbGUwZjM0ZzhAZw&ctz=Europe/Paris&sf=true",
+      "institution": "Inria"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Prosecco2018.pdf" }
+    ]
+  },
+  {
+    "date": "29/11/2018",
+    "where": "Saarbrücken, Germany",
+    "title": "The PML₂ Language: Integrated Program Verification in ML",
+    "misc_talk": "Postdoc inverview talk at the Max Planck Institute for Software Systems",
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_MPI-SWS2018.pdf" }
+    ]
+  },
+  {
+    "date": "27/11/2018",
+    "where": "Saclay, Orsay",
+    "title": "An Overview of the PML₂ Language: Realizability, Subtyping and Cyclic Proofs",
+    "invitation": {
+      "event_name": "“journées inaugurales du GT Scalp” (LRI)",
+      "event_url": "https://www.irif.fr/gt-scalp/journees-2018"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Scalp2018.pdf" }
+    ]
+  },
+  {
+    "date": "01/10/2018",
+    "where": "Paris, France",
+    "title": "Abstract Representation of Binders using the Bindlib Library",
+    "seminar": {
+      "seminar_name": "Gallium seminar",
+      "seminar_url": "http://gallium.inria.fr/seminaires/annonces/20181001.Rodolphe.Lepigre",
+      "institution": "Inria Paris"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Gallium2018b.pdf" }
+    ]
+  },
+  {
+    "date": "20/09/2018",
+    "where": "Cachan, France",
+    "title": "Termination checking using well-founded typing derivations",
+    "seminar": {
+      "seminar_name": "Deducteam seminar",
+      "institution": "ENS de Cachan"
+    },
+    "urls": [
+      { "name": "Slides (utf-8)", "url": "files/slides/Lepigre_Deducteam2018.txt" }
+    ]
+  },
+  {
+    "date": "07/07/2018",
+    "where": "Oxford, UK",
+    "title": "Representation of Binders Using the Bindlib (OCaml) Library",
+    "paper_presentation": {
+      "paper_key": "LepRaf2018",
+      "conference_name": "LFMTP workshop",
+      "conference_url": "https://lfmtp.org/workshops/2018/home.shtml"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_LFMTP2018.pdf" }
+    ]
+  },
+  {
+    "date": "13/06/2018",
+    "where": "Marseille, France",
+    "title": "The PML Language: Realizability at the Service of Program Proofs",
+    "invitation": {
+      "event_name": "Realizability Workshop (CIRM)",
+      "event_url": "https://www.i2m.univ-amu.fr/perso/laura.fontanella/realizabilityworkshop/"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_CIRM2018.pdf" }
+    ]
+  },
+  {
+    "date": "08/03/2018",
+    "where": "Paris, France",
+    "title": "The PML₂ Language: Proving Programs in ML",
+    "seminar": {
+      "seminar_name": "Gallium seminar",
+      "seminar_url": "http://gallium.inria.fr/seminaires/annonces/20180308.Rodolphe.Lepigre",
+      "institution": "Inria Paris"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Gallium2018a.pdf" }
+    ]
+  },
+  {
+    "date": "17/01/2018",
+    "where": "Paris, France",
+    "title": "Practical Curry-Style using Choice Operators and Local Subtyping",
+    "seminar": {
+      "seminar_name": "Type theory and realizability seminar",
+      "seminar_url": "https://www.irif.fr/seminaires/types/index",
+      "institution": "IRIF"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_IRIF2018.pdf" }
+    ]
+  },
+  {
+    "date": "22/09/2017",
+    "where": "Villetaneuse, France",
+    "title": "Circular Proofs for Subtyping and Termination",
+    "seminar": {
+      "seminar_name": "Seminar of the LCR team",
+      "seminar_url": "http://lipn.fr/applications/seminaires",
+      "institution": "LIPN"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_LIPN2017.pdf" }
+    ]
+  },
+  {
+    "date": "01/06/2017",
+    "where": "Budapest, Hungary",
+    "title": "Theory and Demo of PML2: Proving Programs in ML",
+    "contributed_talk": {
+      "event_name": "TYPES conference",
+      "event_url": "http://types2017.elte.hu"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_TYPES2017.pdf" }
+    ]
+  },
+  {
+    "date": "22/02/2017",
+    "where": "Saclay, France",
+    "title": "PML2, Semantical Value Restriction & Pointed Subtyping",
+    "misc_talk": "Visit to the <a href=\"https://team.inria.fr/parsifal/\" class=\"text-danger\">Parsifal Team</a> (Inria Saclay)",
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Parsifal2017.pdf" }
+    ]
+  },
+  {
+    "date": "16/02/2017",
+    "where": "Marseille, France",
+    "title": "Proofs of programs and subtyping in PML2",
+    "seminar": {
+      "seminar_name": "Séminaire Logique et Interactions",
+      "seminar_url": "https://www.i2m.univ-amu.fr/Seminaire-Logique-et-Interactions?date_debut=2017-01-28",
+      "institution": "I2M"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Marseille2017.pdf" }
+    ]
+  },
+  {
+    "date": "07/04/2016",
+    "where": "Eindhoven, Netherlands",
+    "title": "A Classical Realizability Model for a Semantical Value Restriction",
+    "paper_presentation": {
+      "paper_key": "Lepigre2016",
+      "conference_name": "ESOP conference",
+      "conference_url": "https://www.etaps.org/2016/esop"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_ESOP2016.pdf" }
+    ]
+  },
+  {
+    "date": "26/02/2016",
+    "where": "Cambridge, UK",
+    "title": "A call-by-value realizability model for PML",
+    "seminar": {
+      "seminar_name": "Logic and Semantics Seminar",
+      "seminar_url": "https://talks.cam.ac.uk/talk/index/64148",
+      "institution": "Computer Laboratory"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Cambridge2016.pdf" }
+    ]
+  },
+  {
+    "date": "03/12/2015",
+    "where": "Lyon, France",
+    "title": "A call-by-value realizability model for PML",
+    "seminar": {
+      "seminar_name": "Séminaire CHoCoLa",
+      "seminar_url": "http://chocola.ens-lyon.fr/events/seminaire-2015-12-03/",
+      "institution": "ENS de Lyon"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_CHoCoLa2015.pdf" }
+    ]
+  },
+  {
+    "date": "08/01/2015",
+    "where": "Val d'Ajol, France",
+    "title": "Mêler combinateurs et BNF pour l'analyse syntaxique en OCaml",
+    "paper_presentation": {
+      "paper_key": "LepRaf2015",
+      "conference_name": "JFLA workshop",
+      "conference_url": "http://jfla.inria.fr/2015/"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_JFLA2015.pdf" }
+    ]
+  },
+  {
+    "date": "03/12/2014",
+    "where": "Montevideo, Uruguay",
+    "title": "Toward an Adequation Lemma for PML2",
+    "misc_talk": "Visit to the <a href=\"https://www.fing.edu.uy/~amiquel/logica/index.html\" class=\"text-danger\">Equipo de Lógica</a>, Facultad de Ingeniería, Udelar",
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_Montevideo2014.pdf" }
+    ]
+  },
+  {
+    "date": "13/04/2014",
+    "where": "Grenoble, France",
+    "title": "Realizability, Testing and Game Semantics",
+    "contributed_talk": {
+      "event_name": "GaLoP workshop",
+      "event_url": "http://www.gamesemantics.org/galopix"
+    },
+    "urls": [
+      { "name": "Slides (pdf)", "url": "files/slides/Lepigre_GaLoP2014.pdf" }
+    ]
+  }
+]

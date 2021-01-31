@@ -1,0 +1,70 @@
+[
+  {
+    "key": "SubML",
+    "title": "The SubML language",
+    "descr": "The SubML language implements the type system presented in <a href=\"#LepRaf2019\" class=\"text-danger\">[LepRaf2019]</a>. Its many features include subtyping, inductive and coinductive types, polymorphism, existential types, sized types and a termination checker. This is joint work with Christophe Raffalli.",
+    "urls": [
+      { "name": "Git repository", "url": "https://github.com/rlepigre/subml" },
+      { "name": "Online demo", "url": "https://rlepigre.github.io/subml" }
+    ]
+  },
+  {
+    "key": "PML2",
+    "title": "The PML₂ language",
+    "descr": "The PML₂ language implements the system presented in <a href=\"#Lepigre2017PhD\" class=\"text-danger\">[Lepigre2017PhD]</a>. It can be seen as an extension of SubML with proof of programs, classical logic and higher-order. Examples of programs and proofs of programs are given in <a href=\"#Lepigre2017PhD\" class=\"text-danger\">[Lepigre2017PhD]</a> and <a href=\"#Lepigre2017\" class=\"text-danger\">[Lepigre2017]</a>. I was the only author of PML₂ (up to minor fixes and examples) until the PhD thesis version (see below). Christophe Raffalli contributes to the development of the language since September 2017.",
+    "urls": [
+      { "name": "Git repository", "url": "https://github.com/rlepigre/pml" },
+      { "name": "Thesis version", "url": "https://github.com/rlepigre/pml/archive/thesis.tar.gz" }
+    ]
+  },
+  {
+    "key": "Lambdapi",
+    "title": "The Lambdapi language",
+    "descr": "Lambdapi is an implementation of the λΠ-calculus modulo rewriting similar to Dedukti (Dowek et al.), but based on the Bindlib library (see below). It is intended to become the new implementation of Dedukti in the near future. The code is shorter by half, well documented, and first experiments indicate a small gain in terms of performances.",
+    "urls": [
+      { "name": "Git repository", "url": "https://github.com/rlepigre/lambdapi" }
+    ]
+  },
+  {
+    "key": "Bindlib",
+    "title": "The OCaml Bindlib library for bound variables",
+    "descr": "Bindlib is an OCaml library providing tools for the manipulation of data structures with bound variables (e.g., λ-calculus, quantified formulas). It allows for efficient substitution and supports variable renaming. The project was initiated by Christophe Raffalli. I contributed several simplifications, improvements, new features, and most of the current documentation.",
+    "urls": [
+      { "name": "Git repository", "url": "https://github.com/rlepigre/ocaml-bindlib" },
+      { "name": "[LepRaf2018]", "url": "#LepRaf2018" }
+    ]
+  },
+  {
+    "key": "Earley",
+    "title": "Earley parser combinator library for OCaml",
+    "descr": "Earley is a parser combinator library for the OCaml language. It relies on Earley's parsing algorithm and it is intended to be used in conjunction with a proprocessor, which provides an OCaml syntax extension for allowing the definition of parsers inside the OCaml source code. This is joint work with Christophe Raffalli, following <a href=\"#LepRaf2015\" class=\"text-danger\">[LepRaf2015]</a> in which a different parsing technology was used.",
+    "urls": [
+      { "name": "Git repository", "url": "https://github.com/rlepigre/ocaml-earley" }
+    ]
+  },
+  {
+    "key": "Timed",
+    "title": "Timed references for imperative state in OCaml",
+    "descr": "The Timed library allows the encapsulation of reference updates in an abstract notion of state. It can be used to emulate a pure interface while working with (imperative) references. This is joint work with Christophe Raffalli.",
+    "urls": [
+      { "name": "Git repository", "url": "https://github.com/rlepigre/ocaml-timed" }
+    ]
+  },
+  {
+    "key": "Imagelib",
+    "title": "Imagelib library for OCaml",
+    "descr": "The Imagelib library implements image formats without relying on any C library, which makes it suitable for compilation using <code>js_of_ocaml</code>. Supported image formats are PNG (RCF 2083), PPM, PGM, and PBM. The formats JPG, GIF and XCF are only partially supported.",
+    "urls": [
+      { "name": "Git repository", "url": "https://github.com/rlepigre/ocaml-imagelib" }
+    ]
+  },
+  {
+    "key": "Patoline",
+    "title": "Patoline, a modern typesetting system in OCaml",
+    "descr": "Patoline aims at providing an alternative to TeX-based systems by relying on a high-level programming language: OCaml. The project was initiated by Pierre-Étienne Meunier, Christophe Raffalli and Tom Hirschowitz. I joined the project in 2013 and became one of its main contributors. I notably used Patoline to produce my thesis <a href=\"#Lepigre2017PhD\" class=\"text-danger\">[Lepigre2017PhD]</a>.",
+    "urls": [
+      { "name": "Website", "url": "http://patoline.github.io" },
+      { "name": "Git repository", "url": "https://github.com/patoline/patoline" }
+    ]
+  }
+]

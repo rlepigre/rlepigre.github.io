@@ -1,3 +1,5 @@
+---
+---
 <!doctype html>
 <html lang="en">
 <head>
@@ -97,568 +99,57 @@
 
 <h2 id="sect_publications">Publications (<a class="text-danger" href="https://dblp.uni-trier.de/pers/hd/l/Lepigre:Rodolphe">also on dblp</a>)</h2>
 
-<div class="card mb-3" id="JLPRTDJ2020">
-  <div class="card-header text-white bg-journal">
-    <u>The Future is Ours: Prophecy Variables in Separation Logic</u>
-    <span class="float-md-right">[JLPRTDJ2020]</span><br/>
-    Ralf Jung, Rodolphe Lepigre, Gaurav Parthasarathy, Marianna Rapoport,
-    Amin Timany, Derek Dreyer and Bart Jacobs<br/>
-    PACMPL 4(POPL): 45:1-45:32 (2020)
+{% for p in site.data.publications %}
+<div class="card mb-3" id="{{ p.key }}">
+  {% if p.kind != "thesis" %}
+  <div class="card-header text-white bg-{{ p.kind }}">
+  {% else %}
+  <div class="card-header bg-{{ p.kind }}">
+  {% endif %}
+    <u>{{ p.title }}</u>
+    <span class="float-md-right">[{{ p.key }}]</span><br/>
+    {{ p.authors | join: ", " }}<br/>
+    {{ p.where_published }}
   </div>
   <div class="card-body pb-0">
-    <p class="collapse show text-justify" id="collapse_abs_JLPRTDJ2020">
-      <b>Abstract.</b> Early in the development of Hoare logic, Owicki and
-      Gries introduced <em>auxiliary variables</em> as a way of encoding
-      information about the <em>history</em> of a program's execution that is
-      useful for verifying its correctness. Over a decade later, Abadi and
-      Lamport observed that it is sometimes also necessary to know in advance
-      what a program will do in the <em>future</em>. To address this need,
-      they proposed <em>prophecy variables</em>, originally as a proof
-      technique for refinement mappings between state machines. However,
-      despite the fact that prophecy variables are a clearly useful reasoning
-      mechanism, there is (surprisingly) almost no work that attempts to
-      integrate them into Hoare logic. In this paper, we present the first
-      account of prophecy variables in a Hoare-style program logic that is
-      flexible enough to verify <em>logical atomicity</em> (a relative of
-      linearizability) for classic examples from the concurrency literature
-      like RDCSS and the Herlihy-Wing queue. Our account is formalized in the
-      Iris framework for separation logic in Coq. It makes essential use of
-      <em>ownership</em> to encode the exclusive right to resolve a prophecy,
-      which in turn enables us to enforce soundness of prophecies with a very
-      simple set of proof rules.
+    <p class="collapse show text-justify" id="collapse_abs_{{ p.key }}">
+      <b>Abstract.</b> {{ p.abstract | join: '<br><span class="indent">' }}
     </p>
-    <pre class="collapse border bibtex p-3" id="collapse_bib_JLPRTDJ2020"><code>@article{JLPRTDJ2020,
-  author    = {Ralf Jung and
-               Rodolphe Lepigre and
-               Gaurav Parthasarathy and
-               Marianna Rapoport and
-               Amin Timany and
-               Derek Dreyer and
-               Bart Jacobs},
-  title     = {The future is ours: prophecy variables in separation logic},
-  journal   = {{PACMPL}},
-  volume    = {4},
-  number    = {{POPL}},
-  pages     = {45:1--45:32},
-  year      = {2020}
-}</code></pre>
     <p>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_JLPRTDJ2020" role="button" aria-expanded="true" aria-controls="collapse_abs_JLPRTDJ2020">Abstract</a>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_bib_JLPRTDJ2020" role="button" aria-expanded="false" aria-controls="collapse_bib_JLPRTDJ2020">Bibtex</a>
-      <a class="btn btn-info" href="https://plv.mpi-sws.org/prophecies/" role="button">Webpage</a>
-      <a class="btn btn-info" href="https://zenodo.org/record/3541918" role="button">Artifact</a>
-      <a class="btn btn-info" href="https://youtu.be/6Xhhasl50YU" role="button">Talk recording</a>
-      <a class="btn btn-info" href="files/publications/JLPRTDJ2020.pdf" role="button">PDF</a>
+      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_{{ p.key }}" role="button" aria-expanded="true" aria-controls="collapse_abs_{{ p.key }}">Abstract</a>
+      <a class="btn btn-info" href="{{ p.pdf_url }}" role="button">PDF</a>
+      {% if p.dblp_url %}
+      <a class="btn btn-info" href="{{ p.dblp_url }}" role="button">On DPLB</a>
+      <a class="btn btn-info" href="{{ p.dblp_url }}?view=bibtex&param=0" role="button">Bibtex</a>
+      {% endif %}
+      {% for u in p.urls %}
+      <a class="btn btn-info" href="{{ u.url }}" role="button">{{ u.name }}</a>
+      {% endfor %}
     </p>
   </div>
 </div>
-
-<div class="card mb-3" id="CLS2019">
-  <div class="card-header text-white bg-conference">
-    <u>Unboxing Mutually Recursive Type Definitions in OCaml</u>
-    <span class="float-md-right">[CLS2019]</span><br/>
-    Simon Colin, Rodolphe Lepigre and Gabriel Scherer — JFLA 2019
-  </div>
-  <div class="card-body pb-0">
-    <p class="collapse show text-justify" id="collapse_abs_CLS2019">
-      <b>Abstract.</b> In modern OCaml, single-argument datatype declarations
-      (variants with a single constructor, records with a single field) can
-      sometimes be “unboxed”. This means that their memory representation is
-      the same as their single argument (omitting the variant or record
-      constructor and an indirection), thus achieving better time and memory
-      efficiency.  However, in the case of generalized/guarded algebraic
-      datatypes (GADTs), unboxing is not always possible due to a subtle fact
-      about the runtime representation of OCaml values. The current
-      correctness check is incomplete, rejecting many valid definitions, in
-      particular those involving mutually-recursive datatype declarations.  In
-      this paper, we explain the notion of <em>separability</em> as a semantic
-      for the unboxing criterion, and propose a set of inference rules to
-      check separability. From these inference rules, we derive a new
-      implementation of the unboxing check that properly supports
-      mutually-recursive definitions.
-    </p>
-    <pre class="collapse border bibtex p-3" id="collapse_bib_CLS2019"><code>@inproceedings{CLS2019,
-  author    = {Simon Colin and Rodolphe Lepigre and Gabriel Scherer},
-  title     = {Unboxing Mutually Recursive Type Definitions in OCaml},
-  booktitle = {Proceedings of JFLA, Les Rousses, France, 30th January to 2nd February 2019.},
-  year      = {2019}
-}</code></pre>
-    <p>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_CLS2019" role="button" aria-expanded="true" aria-controls="collapse_abs_CLS2019">Abstract</a>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_bib_CLS2019" role="button" aria-expanded="false" aria-controls="collapse_bib_CLS2019">Bibtex</a>
-      <a class="btn btn-info" href="files/publications/CLS2019.pdf" role="button">PDF</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="LepRaf2019">
-  <div class="card-header text-white bg-journal">
-    <u>Practical Subtyping for Curry-Style Languages</u>
-    <span class="float-md-right">[LepRaf2019]</span><br/>
-    Rodolphe Lepigre and Christophe Raffalli — ACM Trans. Program. Lang. Syst. 41(1): 5:1-5:58 (2019)
-  </div>
-  <div class="card-body pb-0">
-    <p class="collapse show text-justify" id="collapse_abs_LepRaf2019">
-      <b>Abstract.</b> We present a new, syntax-directed framework for Curry style
-      type-systems with subtyping. It supports a rich set of features, and
-      allows for a reasonably simple theory and implementation. The
-      system we consider has sum and product types, universal and
-      existential quantifiers, inductive and coinductive types. The latter
-      two may carry size invariants that can be used to establish the
-      termination of recursive programs. For example, the termination of
-      quicksort can be derived by showing that partitioning a list does
-      not increase its size. The system deals with complex programs
-      involving mixed induction and coinduction, or even mixed
-      polymorphism and (co-)induction. One of the key ideas is to separate
-      the notion of size from recursion. We do not check the termination
-      of programs directly, but rather show that their (circular) typing
-      proofs are well-founded. Termination is then obtained using a
-      standard (semantic) normalisation proof. To demonstrate the
-      practicality of the system, we provide an implementation accepting
-      all the examples discussed in the paper.
-    </p>
-    <pre class="collapse border bibtex p-3" id="collapse_bib_LepRaf2019"><code>@article{LepRaf2019,
-  author    = {Rodolphe Lepigre and
-               Christophe Raffalli},
-  title     = {Practical Subtyping for Curry-Style Languages},
-  journal   = {{ACM} Trans. Program. Lang. Syst.},
-  volume    = {41},
-  number    = {1},
-  pages     = {5:1--5:58},
-  year      = {2019}
-}</code></pre>
-    <p>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_LepRaf2019" role="button" aria-expanded="true" aria-controls="collapse_abs_LepRaf2019">Abstract</a>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_bib_LepRaf2019" role="button" aria-expanded="false" aria-controls="collapse_bib_LepRaf2019">Bibtex</a>
-      <a class="btn btn-info" href="files/publications/LepRaf2019.pdf" role="button">PDF</a>
-      <a class="btn btn-info" href="https://dl.acm.org/citation.cfm?doid=3299867.3285955" role="button">Official link</a>
-      <a class="btn btn-info" href="#SubML" role="button">[SubML]</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="LepRaf2018">
-  <div class="card-header text-white bg-conference">
-    <u>Abstract Representation of Binders in OCaml using the Bindlib Library</u>
-    <span class="float-md-right">[LepRaf2018]</span><br/>
-    Rodolphe Lepigre and Christophe Raffalli — LFMTP@FSCD 2018: 42-56 
-  </div>
-  <div class="card-body pb-0">
-    <p class="collapse show text-justify" id="collapse_abs_LepRaf2018">
-      <b>Abstract.</b> The Bindlib library for OCaml provides a set of
-      tools for the manipulation of data structures with variable binding.
-      It is very well suited for the representation of abstract syntax
-      trees, and has already been used for the implementation of half a
-      dozen languages and proof assistants (including a new version of the
-      logical framework Dedukti).  Bindlib is optimised for fast
-      substitution, and it supports variable renaming. Since the
-      representation of binders is based on higher-order abstract syntax,
-      variable capture cannot arise during substitution. As a consequence,
-      variable names are not updated at substitution time. They can
-      however be explicitly recomputed to avoid “visual capture” (i.e.,
-      distinct variables with the same apparent name) when a data
-      structure is displayed.
-    </p>
-    <pre class="collapse border bibtex p-3" id="collapse_bib_LepRaf2018"><code>@inproceedings{LepRaf2018,
-  author    = {Rodolphe Lepigre and
-               Christophe Raffalli},
-  editor    = {Fr{\'{e}}d{\'{e}}ric Blanqui and
-               Giselle Reis},
-  title     = {Abstract Representation of Binders in OCaml using the Bindlib Library},
-  booktitle = {Proceedings of the 13th International Workshop on Logical Frameworks
-               and Meta-Languages: Theory and Practice, LFMTP@FSCD 2018, Oxford,
-               UK, 7th July 2018.},
-  series    = {{EPTCS}},
-  volume    = {274},
-  pages     = {42--56},
-  year      = {2018},
-  url       = {https://doi.org/10.4204/EPTCS.274.4},
-  doi       = {10.4204/EPTCS.274.4}
-}</code></pre>
-    <p>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_LepRaf2018" role="button" aria-expanded="true" aria-controls="collapse_abs_LepRaf2018">Abstract</a>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_bib_LepRaf2018" role="button" aria-expanded="false" aria-controls="collapse_bib_LepRaf2018">Bibtex</a>
-      <a class="btn btn-info" href="files/publications/LepRaf2018.pdf" role="button">PDF</a>
-      <a class="btn btn-info" href="http://eptcs.web.cse.unsw.edu.au/paper.cgi?LFMTP2018.4" role="button">Official link</a>
-      <a class="btn btn-info" href="#Bindlib" role="button">[Bindlib]</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Lepigre2017PhD">
-  <div class="card-header bg-thesis">
-    <u>Semantics and Implementation of an Extension of ML for Proving Programs</u>
-    <span class="float-md-right">[Lepigre2017PhD]</span><br/>
-    Rodolphe Lepigre – PhD thesis, Université Savoie Mont Blanc
-  </div>
-  <div class="card-body pb-0">
-    <p class="collapse show text-justify" id="collapse_abs_Lepigre2017PhD">
-      <b>Abstract.</b> In recent years, proof assistant have reached an
-      impressive level of maturity. They have led to the certification of
-      complex programs such as compilers and operating systems. Yet, using
-      a proof assistant requires highly specialised skills and it remains
-      very different from standard programming. To bridge this gap, we aim
-      at designing an ML-style programming language with support for
-      proofs of programs, combining in a single tool the flexibility of ML
-      and the fine specification features of a proof assistant. In other
-      words, the system should be suitable both for programming (in the
-      strongly-typed, functional sense) and for gradually increasing the
-      level of guarantees met by programs, on a by-need basis.<br>
-
-      <span class="indent"></span>We thus define and study a call-by-value language whose type system
-      extends higher-order logic with an equality type over untyped
-      programs, a dependent function type, classical logic and subtyping.
-      The combination of call-by-value evaluation, dependent functions and
-      classical logic is known to raise consistency issues. To ensure the
-      correctness of the system (logical consistency and runtime safety),
-      we design a theoretical framework based on Krivine's classical
-      realizability. The construction of the model relies on an essential
-      property linking the different levels of interpretation of types in
-      a novel way.<br>
-
-      <span class="indent"></span>We finally demonstrate the expressive power of our system using our
-      prototype implementation, by proving properties of standard programs
-      like the map function on lists or the insertion sort.
-    </p>
-    <pre class="collapse border bibtex p-3" id="collapse_bib_Lepigre2017PhD"><code>@phdthesis{Lepigre2017PhD,
-  author    = {Rodolphe Lepigre},
-  title     = {Semantics and Implementation of an Extension of {ML} for Proving Programs.
-               (S{\'{e}}mantique et Implantation d'une Extension de {ML} pour
-               la Preuve de Programmes)},
-  school    = {Grenoble Alpes University, France},
-  year      = {2017},
-  url       = {https://tel.archives-ouvertes.fr/tel-01590363}
-}</code></pre>
-    <p>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_Lepigre2017PhD" role="button" aria-expanded="true" aria-controls="collapse_abs_Lepigre2017PhD">Abstract</a>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_bib_Lepigre2017PhD" role="button" aria-expanded="false" aria-controls="collapse_bib_Lepigre2017PhD">Bibtex</a>
-      <a class="btn btn-info" href="files/publications/Lepigre2017PhD.pdf" role="button">PDF</a>
-      <a class="btn btn-info" href="https://tel.archives-ouvertes.fr/tel-01682908" role="button">Official link</a>
-      <a class="btn btn-info" href="#PML2" role="button">[PML2]</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Lepigre2017">
-  <div class="card-header text-white bg-conference">
-    <u>PML₂: Integrated Program Verification in ML</u>
-    <span class="float-md-right">[Lepigre2017]</span><br/>
-    Rodolphe Lepigre — TYPES 2017: 4:1-4:27
-  </div>
-  <div class="card-body pb-0">
-    <p class="collapse show text-justify" id="collapse_abs_Lepigre2017">
-      <b>Abstract.</b> We present the PML₂ language, which provides a
-      uniform environment for programming, and for proving properties of
-      programs in an ML-like setting.  The language is Curry-style and
-      call-by-value, it provides a control operator (interpreted in terms
-      of classical logic), it supports general recursion and a very
-      general form of (implicit, non-coercive) subtyping. In the system,
-      equational properties of programs are expressed using two new type
-      formers, and they are proved by constructing terminating programs.
-      Although proofs rely heavily on equational reasoning, equalities are
-      exclusively managed by the type-checker. This means that the user
-      only has to choose which equality to use, and not where to use it,
-      as is usually done in mathematical proofs. In the system, writing
-      proofs mostly amounts to applying lemmas (possibly recursive
-      function calls), and to perform case analyses (pattern matchings).
-    </p>
-    <pre class="collapse border bibtex p-3" id="collapse_bib_Lepigre2017"><code>@inproceedings{Lepigre2017,
-  author    = {Rodolphe Lepigre},
-  title     = {{PML2:} Integrated Program Verification in {ML}},
-  booktitle = {{TYPES}},
-  series    = {LIPIcs},
-  volume    = {104},
-  pages     = {4:1--4:27},
-  publisher = {Schloss Dagstuhl - Leibniz-Zentrum fuer Informatik},
-  year      = {2017}
-}</code></pre>
-    <p>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_Lepigre2017" role="button" aria-expanded="true" aria-controls="collapse_abs_Lepigre2017">Abstract</a>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_bib_Lepigre2017" role="button" aria-expanded="false" aria-controls="collapse_bib_Lepigre2017">Bibtex</a>
-      <a class="btn btn-info" href="files/publications/Lepigre2017.pdf" role="button">PDF</a>
-      <a class="btn btn-info" href="http://drops.dagstuhl.de/opus/volltexte/2018/10052/" role="button">Official link</a>
-      <a class="btn btn-info" href="#PML2" role="button">[PML2]</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Lepigre2016">
-  <div class="card-header text-white bg-conference">
-    <u>A Classical Realizability Model for a Semantical Value Restriction</u>,
-    <span class="float-md-right">[Lepigre2016]</span><br/>
-    Rodolphe Lepigre — ESOP 2016: 476-502
-  </div>
-  <div class="card-body pb-0">
-    <p class="collapse show text-justify" id="collapse_abs_Lepigre2016">
-      <b>Abstract.</b> We present a new type system with support for
-      proofs of programs in a call-by-value language with control
-      operators. The proof mechanism relies on observational equivalence
-      of (untyped) programs. It appears in two type constructors, which
-      are used for specifying program properties and for encoding
-      dependent products.  The main challenge arises from the lack of
-      expressiveness of dependent products due to the value restriction.
-      To circumvent this limitation we relax the syntactic restriction and
-      only require equivalence to a value.  The consistency of the system
-      is obtained semantically by constructing a classical realizability
-      model in three layers (values, stacks and terms).
-    </p>
-    <pre class="collapse border bibtex p-3" id="collapse_bib_Lepigre2016"><code>@inproceedings{Lepigre2016,
-  author    = {Rodolphe Lepigre},
-  editor    = {Peter Thiemann},
-  title     = {A Classical Realizability Model for a Semantical Value Restriction},
-  booktitle = {Programming Languages and Systems - 25th European Symposium on Programming,
-               {ESOP} 2016, Held as Part of the European Joint Conferences on Theory
-               and Practice of Software, {ETAPS} 2016, Eindhoven, The Netherlands,
-               April 2-8, 2016, Proceedings},
-  series    = {Lecture Notes in Computer Science},
-  volume    = {9632},
-  pages     = {476--502},
-  publisher = {Springer},
-  year      = {2016},
-  url       = {https://doi.org/10.1007/978-3-662-49498-1\_19},
-  doi       = {10.1007/978-3-662-49498-1\_19}
-}</code></pre>
-    <p>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_Lepigre2016" role="button" aria-expanded="true" aria-controls="collapse_abs_Lepigre2016">Abstract</a>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_bib_Lepigre2016" role="button" aria-expanded="false" aria-controls="collapse_bib_Lepigre2016">Bibtex</a>
-      <a class="btn btn-info" href="files/publications/Lepigre2016.pdf" role="button">PDF</a>
-      <a class="btn btn-info" href="https://link.springer.com/chapter/10.1007/978-3-662-49498-1_19" role="button">Official link</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="LepRaf2015">
-  <div class="card-header text-white bg-informal">
-    <u>Mêler combinateurs, continuations et EBNF pour une analyse syntaxique efficace en OCaml</u>
-    <span class="float-md-right">[LepRaf2015]</span><br/>
-    Rodolphe Lepigre and Christophe Raffalli — JFLA 2015 (short paper, long version)
-  </div>
-  <div class="card-body pb-0">
-    <div class="alert alert-warning" role="alert">
-      This document descibes an obsolete tool, that has now been replaced by <a href="#Earley" class="text-danger">[Earley]</a>
-    </div>
-    <p class="collapse show text-justify" id="collapse_abs_LepRaf2015">
-      <b>Abstract.</b> Le cœur de DeCaP, objet de cet article, est une
-      bibliothèque de combinateurs d'analyseurs syntaxiques. Ils sont la cible
-      de la traduction d'une syntaxe EBNF, sans récursion à gauche, que l'on
-      a ajoutée à OCaml. Les parseurs ainsi définis sont des expressions de
-      première classe.<br>
-
-      <span class="indent"></span>Pour plus d'efficacité, nos combinateurs
-      utilisent des continuations et inspectent l'ensemble des premiers
-      caractères acceptés par une grammaire afin d'élaguer l'arbre des
-      possibilités.  Les continuations donnent naturellement la sémantique
-      complète d'EBNF et DeCaP peut donc gérer les grammaires ambigues. De
-      plus, des combinateurs inspirés de la notion de continuation délimitée
-      permettent d'optimiser certaines grammaires en restreignant la
-      sémantique. Notre parseur d’OCaml est en moyenne deux fois plus rapide
-      que celui de Camlp4 et cinq fois plus lent que l'original.<br>
-
-      <span class="indent"></span> DeCaP fournit également un système de
-      quotation et d'anti-quotation similaire à celui de Camlp4 et permet
-      ainsi d'étendre la syntaxe d'OCaml. Notre outil se veut plus simple et
-      moins contraignant que ce dernier et n'impose, par exemple, aucune
-      analyse lexicale.
-    </p>
-    <pre class="collapse border bibtex p-3" id="collapse_bib_LepRaf2015"><code>@inproceedings{LepRaf2015,
-  author    = {Rodolphe Lepigre and Christophe Raffalli},
-  title     = {{Mêler combinateurs, continuations et EBNF pour une analyse
-                syntaxique efficace en OCaml}},
-  year      = {2015},
-  booktitle = {Journées Francophones dans Langages Applicatifs (short paper only)}
-}</code></pre>
-    <p>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_LepRaf2015" role="button" aria-expanded="true" aria-controls="collapse_abs_LepRaf2015">Abstract</a>
-      <a class="btn btn-info" data-toggle="collapse"
-        href="#collapse_bib_LepRaf2015" role="button" aria-expanded="false" aria-controls="collapse_bib_LepRaf2015">Bibtex</a>
-      <a class="btn btn-info" href="files/publications/LepRaf2015.pdf" role="button">PDF (in French)</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Lepigre2013M2">
-  <div class="card-header text-white bg-informal">
-    <u>A Classical Realizability Interpretation of Judgement Testing</u>
-    <span class="float-md-right">[Lepigre2013M2]</span><br/>
-    Rodolphe Lepigre — Masters thesis, Université Savoie Mont Blanc
-  </div>
-  <div class="card-body pb-0">
-    <p class="collapse show text-justify" id="collapse_abs_Lepigre2013M2">
-      <b>Abstract.</b> A notion of test for intuitionistic type theory has
-      recently been introduced by Peter Dybjer and his collaborators. It is
-      meant to be the foundation for automatic testing tools that could be
-      implemented in proof assistants such as Coq or Agda. Such tools would
-      provide a way to test, at any time during the construction of a proof,
-      if the current goal can be completed in the context. The failure of such
-      a test would mean that the goal is impossible to prove, and its success
-      would corroborate the partial result.<br>
-
-      <span class="indent"></span>In this report, we investigate the
-      possibility of extending the testing procedure to classical systems. We
-      propose an interpretation of the testing procedure in terms of Krivine's
-      classical realizability. Finally we show that the notion of test is
-      correct, in the sense that a judgement is valid if and only if it passes
-      every possible test.
-    </p>
-    <pre class="collapse border bibtex p-3" id="collapse_bib_Lepigre2013M2"><code>@MastersThesis{Lepigre2013M2,
-  author    = {Rodolphe Lepigre},
-  title     = {A Classical Realizability Interpretation of Judgement Testing},
-  school    = {Grenoble INP and Université Joseph Fourrier, Grenoble, France},
-  year      = {2013}
-}</code></pre>
-    <p>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_Lepigre2013M2" role="button" aria-expanded="true" aria-controls="collapse_abs_Lepigre2016M2">Abstract</a>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_bib_Lepigre2013M2" role="button" aria-expanded="false" aria-controls="collapse_bib_Lepigre2016M2">Bibtex</a>
-      <a class="btn btn-info" href="files/publications/Lepigre2013M2.pdf" role="button">PDF</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Lepigre2012M1">
-  <div class="card-header text-white bg-informal">
-    <u>Testing judgements of type theory</u>
-    <span class="float-md-right">[Lepigre2012M1]</span><br/>
-    Rodolphe Lepigre — Chalmers Tekniska Hőgskola
-  </div>
-  <div class="card-body pb-0">
-    <p class="collapse show text-justify" id="collapse_abs_Lepigre2012M1">
-      <b>Abstract.</b>We investigate a testing framework for type theory. We
-      first describe the Krivine Abstract Machine (KAM), and the Testing KAM
-      (TKAM) which is a modified version of the KAM that allows the testing of
-      terms of the PCF language. This follows notes by Pierre Clairambault.
-      We use two versions of the TKAM. The first one is restricted to the
-      Finite System T language and the second one has lazy natural numbers.
-      We then use the virtual machines as the central part of a testing
-      procedure for the typing of terms.  This work is an implementation of
-      certain aspects of the testing manual for intuitionistic type theory
-      described in Peter Dybjer's paper “Program Testing and Constructive
-      Validity”.
-    </p>
-    <pre class="collapse border bibtex p-3" id="collapse_bib_Lepigre2012M1"><code>@MastersThesis{Lepigre2012M1,
-  author    = {Rodolphe Lepigre},
-  title     = {Testing judgments of type theory},
-  school    = {Chalmers Tekniska H\"ogskola, G\"oteborg, Sweden},
-  year      = {2012}
-}</code></pre>
-    <p>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_abs_Lepigre2012M1" role="button" aria-expanded="true" aria-controls="collapse_abs_Lepigre2016M2">Abstract</a>
-      <a class="btn btn-info" data-toggle="collapse" href="#collapse_bib_Lepigre2012M1" role="button" aria-expanded="false" aria-controls="collapse_bib_Lepigre2016M2">Bibtex</a>
-      <a class="btn btn-info" href="files/publications/Lepigre2012M1.pdf" role="button">PDF</a>
-    </p>
-  </div>
-</div>
+{% endfor %}
 
 <h2 id="sect_softwares">Software</h2>
 
 <p class="text-justify">My work on the design of type systems for programming languages and proof assistants has resulted in a relatively large amount of implementation work. The most important projects are listed in the following section, and include PML₂ (which is described in <a href="#Lepigre2017" class="text-danger">[Lepigre2017]</a> and <a href="#Lepigre2017PhD" class="text-danger">[Lepigre2017PhD]</a>), SubML (which is described in <a href="#LepRaf2019" class="text-danger">[LepRaf2019]</a>) but also a more recent work on a new implementation and extension of the <a href="https://deducteam.github.io" class="text-danger">Dedukti</a> logical framework. The implementation of such systems has also directed me toward the development of specific tools and software libraries providing convenient abstractions. For instance, I take part in the development of the Bindlib library <a href="#LepRaf2018" class="text-danger">[LepRaf2018]</a>, that was initiated by Christophe Raffalli, and that provides an abstract representation for binders (which are very common in languages and proofs systems). We also developed (with Christophe Raffalli) a system for writing parsers called Earley, that is integrated to OCaml using a BNF-like syntax extension.</p>
 
-<div class="card mb-3" id="SubML">
+{% for s in site.data.softwares %}
+<div class="card mb-3" id="{{ s.key }}">
   <div class="card-header">
-    The SubML language
-    <span class="float-md-right">[SubML]</span>
+    {{ s.title }}
+    <span class="float-md-right">[{{ s.key }}]</span>
   </div>
   <div class="card-body pb-0">
-    <p class="text-justify">The SubML language implements the type system presented in <a href="#LepRaf2019" class="text-danger">[LepRaf2019]</a>. Its many features include subtyping, inductive and coinductive types, polymorphism, existential types, sized types and a termination checker. This is joint work with Christophe Raffalli.</p>
+    <p class="text-justify">{{ s.descr }}</p>
     <p>
-      <a class="btn btn-info" href="https://github.com/rlepigre/subml" role="button">Git repository</a>
-      <a class="btn btn-info" href="https://rlepigre.github.io/subml" role="button">Online demo</a>
+      {% for u in s.urls %}
+      <a class="btn btn-info" href="{{ u.url }}" role="button">{{ u.name }}</a>
+      {% endfor %}
     </p>
   </div>
 </div>
-
-<div class="card mb-3" id="PML2">
-  <div class="card-header">
-    The PML₂ language
-    <span class="float-md-right">[PML2]</span>
-  </div>
-  <div class="card-body pb-0">
-    <p class="text-justify">The PML₂ language implements the system presented in <a href="#Lepigre2017PhD" class="text-danger">[Lepigre2017PhD]</a>. It can be seen as an extension of SubML with proof of programs, classical logic and higher-order. Examples of programs and proofs of programs are given in <a href="#Lepigre2017PhD" class="text-danger">[Lepigre2017PhD]</a> and <a href="#Lepigre2017" class="text-danger">[Lepigre2017]</a>. I was the only author of PML₂ (up to minor fixes and examples) until the PhD thesis version (see below). Christophe Raffalli contributes to the development of the language since September 2017.</p>
-    <p>
-      <a class="btn btn-info" href="https://github.com/rlepigre/pml" role="button">Git repository</a>
-      <a class="btn btn-info" href="https://github.com/rlepigre/pml/archive/thesis.tar.gz" role="button">Thesis version</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Lambdapi">
-  <div class="card-header">
-    The Lambdapi language
-    <span class="float-md-right">[Lambdapi]</span>
-  </div>
-  <div class="card-body pb-0">
-    <p class="text-justify">Lambdapi is an implementation of the λΠ-calculus modulo rewriting similar to Dedukti (Dowek et al.), but based on the Bindlib library (see below). It is intended to become the new implementation of Dedukti in the near future. The code is shorter by half, well documented, and first experiments indicate a small gain in terms of performances.</p>
-    <p>
-      <a class="btn btn-info" href="https://github.com/rlepigre/lambdapi" role="button">Git repository</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Bindlib">
-  <div class="card-header">
-    The OCaml Bindlib library for bound variables
-    <span class="float-md-right">[Bindlib]</span>
-  </div>
-  <div class="card-body pb-0">
-    <p class="text-justify">Bindlib is an OCaml library providing tools for the manipulation of data structures with bound variables (e.g., λ-calculus, quantified formulas). It allows for efficient substitution and supports variable renaming. The project was initiated by Christophe Raffalli. I contributed several simplifications, improvements, new features, and most of the current documentation.</p>
-    <p>
-      <a class="btn btn-info" href="https://github.com/rlepigre/ocaml-bindlib" role="button">Git repository</a>
-      <a class="btn btn-info" href="#LepRaf2018" role="button">[LepRaf2018]</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Earley">
-  <div class="card-header">
-    Earley parser combinator library for OCaml
-    <span class="float-md-right">[Earley]</span>
-  </div>
-  <div class="card-body pb-0">
-    <p class="text-justify">Earley is a parser combinator library for the OCaml language. It relies on Earley's parsing algorithm and it is intended to be used in conjunction with a proprocessor, which provides an OCaml syntax extension for allowing the definition of parsers inside the OCaml source code. This is joint work with Christophe Raffalli, following <a href="#LepRaf2015" class="text-danger">[LepRaf2015]</a> in which a different parsing technology was used.</p>
-    <p>
-      <a class="btn btn-info" href="https://github.com/rlepigre/ocaml-earley" role="button">Git repository</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Timed">
-  <div class="card-header">
-    Timed references for imperative state in OCaml
-    <span class="float-md-right">[Timed]</span>
-  </div>
-  <div class="card-body pb-0">
-    <p class="text-justify">The Timed library allows the encapsulation of reference updates in an abstract notion of state. It can be used to emulate a pure interface while working with (imperative) references. This is joint work with Christophe Raffalli.</p>
-    <p>
-      <a class="btn btn-info" href="https://github.com/rlepigre/ocaml-timed" role="button">Git repository</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Imagelib">
-  <div class="card-header">
-    Imagelib library for OCaml
-    <span class="float-md-right">[Imagelib]</span>
-  </div>
-  <div class="card-body pb-0">
-    <p class="text-justify">The Imagelib library implements image formats without relying on any C library, which makes it suitable for compilation using <code>js_of_ocaml</code>. Supported image formats are PNG (RCF 2083), PPM, PGM, and PBM. The formats JPG, GIF and XCF are only partially supported.</p>
-    <p>
-      <a class="btn btn-info" href="https://github.com/rlepigre/ocaml-imagelib" role="button">Git repository</a>
-    </p>
-  </div>
-</div>
-
-<div class="card mb-3" id="Patoline">
-  <div class="card-header">
-    Patoline, a modern typesetting system in OCaml
-    <span class="float-md-right">[Patoline]</span>
-  </div>
-  <div class="card-body pb-0">
-    <p class="text-justify">Patoline aims at providing an alternative to TeX-based systems by relying on a high-level programming language: OCaml. The project was initiated by Pierre-Étienne Meunier, Christophe Raffalli and Tom Hirschowitz. I joined the project in 2013 and became one of its main contributors. I notably used Patoline to produce my thesis <a href="#Lepigre2017PhD" class="text-danger">[Lepigre2017PhD]</a>.</p>
-    <p>
-      <a class="btn btn-info" href="http://patoline.org" role="button">Website</a>
-      <a class="btn btn-info" href="https://github.com/patoline/patoline" role="button">Git repository</a>
-    </p>
-  </div>
-</div>
+{% endfor %}
 
 <h2 id="sect_talks">Talks and paper presentations</h2>
 
@@ -674,199 +165,40 @@
     <tr>
       <th scope="col">Date and location</th>
       <th scope="col">Title and kind of talk</th>
-      <th scope="col">Slides</th>
+      <th scope="col">Slides and videos</th>
     </tr>
   </thead>
   <tbody>
+    {% for t in site.data.talks %}
     <tr>
-      <td>22/01/2020<br/>New Orleans, USA</td>
+      <td>{{ t.date }}<br/>{{ t.where }}</td>
       <td>
-        <u>The Future is Ours - Prophecy Variables in Separation Logic</u><br/>
-        <a href="#JLPRTDJ2020" class="text-danger">Paper</a> presentation at the <a href="https://popl20.sigplan.org" class="text-danger">POPL</a> conference
+        <u>{{ t.title }}</u><br/>
+        {% if t.paper_presentation %}
+        <a href="#{{ t.paper_presentation.paper_key }}" class="text-danger">Paper</a> presentation
+        at the <a href="{{ t.paper_presentation.conference_url }}" class="text-danger">{{ t.paper_presentation.conference_name }}</a>
+        {% elsif t.contributed_talk %}
+        Contributed talk at the <a href="{{ t.contributed_talk.event_url }}" class="text-danger">{{ t.contributed_talk.event_name }}</a>
+        {% elsif t.invitation %}
+        Invited talk at the <a href="{{ t.invitation.event_url }}" class="text-danger">{{ t.invitation.event_name }}</a>
+        {% elsif t.seminar %}
+        {% if t.seminar.seminar_url %}
+        <a href="{{ t.seminar.seminar_url }}" class="text-danger">{{ t.seminar.seminar_name }}</a> ({{ t.seminar.institution }})
+        {% else %}
+        {{ t.seminar.seminar_name }} ({{ t.seminar.institution }})
+        {% endif %}
+        <!-- TODO -->
+        {% elsif t.misc_talk %}
+        {{ t.misc_talk }}
+        {% endif %}
       </td>
       <td>
-        <a class="btn btn-info" href="https://docs.google.com/presentation/d/1KJB4ynz216BU9-XNgtfavUEh24fdlR8a3fPQKXBjSE0/edit?usp=sharing" role="button">Slides</a>
-        <a class="btn btn-info" href="https://youtu.be/6Xhhasl50YU" role="button">Video</a>
+        {% for u in t.urls %}
+        <a class="btn btn-info" href="{{ u.url }}" role="button">{{ u.name }}</a>
+        {% endfor %}
       </td>
     </tr>
-    <tr>
-      <td>28/10/2019<br/>Aarhus, Denmark</td>
-      <td>
-        <u>Prophecy Variables in Separation Logic (Extending Iris with Prophecy Variables)</u><br/>
-        Contributed talk at the <a href="https://iris-project.org/workshop-2019/" class="text-danger">Iris Workshop</a>
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Iris_Workshop2019.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>20/09/2019<br/>Marseille, France</td>
-      <td>
-        <u>A Practical Framework for Curry-Style Languages (Inspired by Realizability Semantics)</u><br/>
-        Invited speaker at the <a href="https://www.i2m.univ-amu.fr/perso/laura.fontanella/realizabilityworkshop2019/" class="text-danger">Realizability Workshop</a> (CIRM)
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_CIRM2019.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>16/09/2019<br/>Cachan, France</td>
-      <td>
-        <u>Prophecy Variables in Separation Logic (Extending Iris with Prophecy Variables)</u><br/>
-        Deducteam seminar (ENS de Cachan)</td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Deducteam2019.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>11/12/2018<br/>Nantes, France</td>
-      <td>
-        <u>The PML₂ Language: Integrated Program Verification in ML</u><br/>
-        Gallinette seminar (Inria)</td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Gallinette2018.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>03/12/2018<br/>Paris, France</td>
-      <td>
-        <u>The PML₂ Language: Integrated Program Verification in ML</u><br/>
-        <a href="https://calendar.google.com/calendar/r/week/2018/12/3?eid=MDVrcDk3aG9mcDcwc3ZoZDE1bXE1cGZxNHUganVsb2I5ZXBlcGNobWE5MjNhbGUwZjM0ZzhAZw&ctz=Europe/Paris&sf=true" class="text-danger">Prosecco seminar</a> (Inria Paris)</td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Prosecco2018.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>29/11/2018<br/>Saarbrücken, Germany</td>
-      <td>
-        <u>The PML₂ Language: Integrated Program Verification in ML</u><br/>
-        Talk at the <a href="https://www.mpi-sws.org" class="text-danger">Max Planck Institute for Software Systems</a></td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_MPI-SWS2018.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>27/11/2018<br/>Saclay, Orsay</td>
-      <td>
-        <u>An Overview of the PML₂ Language: Realizability, Subtyping and Cyclic Proofs</u><br/>
-        Invited speaker at the <a href="https://www.irif.fr/gt-scalp/journees-2018" class="text-danger">journées inaugurales du GT Scalp</a> (LRI)</td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Scalp2018.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>01/10/2018<br/>Paris, France</td>
-      <td>
-        <u>Abstract Representation of Binders using the Bindlib Library</u><br/>
-        <a href="http://gallium.inria.fr/seminaires/annonces/20181001.Rodolphe.Lepigre" class="text-danger">Gallium seminar</a> (Inria Paris)</td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Gallium2018b.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>20/09/2018<br/>Cachan, France</td>
-      <td>
-        <u>Termination checking using well-founded typing derivations</u><br/>
-        Deducteam seminar (ENS de Cachan)</td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Deducteam2018.txt" role="button">UTF-8</a></td>
-    </tr>
-    <tr>
-      <td>07/07/2018<br/>Oxford, UK</td>
-      <td>
-        <u>Representation of Binders Using the Bindlib (OCaml) Library</u><br/>
-        Paper presentation at the <a href="https://lfmtp.org/workshops/2018/home.shtml" class="text-danger">LFMTP workshop</a>
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_LFMTP2018.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>13/06/2018<br/>Marseille, France</td>
-      <td>
-        <u>The PML Language: Realizability at the Service of Program Proofs</u><br/>
-        Invited speaker at the <a href="https://www.i2m.univ-amu.fr/perso/laura.fontanella/realizabilityworkshop/" class="text-danger">Realizability Workshop</a> (CIRM)
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_CIRM2018.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>08/03/2018<br/>Paris, France</td>
-      <td>
-        <u>The PML₂ Language: Proving Programs in ML</u><br/>
-        <a href="http://gallium.inria.fr/seminaires/annonces/20180308.Rodolphe.Lepigre" class="text-danger">Gallium seminar</a> (Inria Paris)
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Gallium2018a.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>17/01/2018<br/>Paris, France</td>
-      <td>
-        <u>Practical Curry-Style using Choice Operators and Local Subtyping</u><br/>
-        <a href="https://www.irif.fr/seminaires/types/index" class="text-danger">Type theory and realizability seminar</a> (IRIF)
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_IRIF2018.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>22/09/2017<br/>Villetaneuse, France</td>
-      <td>
-        <u>Circular Proofs for Subtyping and Termination</u><br/>
-        <a href="http://lipn.fr/applications/seminaires" class="text-danger">Seminar of the LCR team</a> (LIPN)
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_LIPN2017.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>01/06/2017<br/>Budapest, Hungary</td>
-      <td>
-        <u>Theory and Demo of PML2: Proving Programs in ML</u><br/>
-        Contributed talk at the <a href="http://types2017.elte.hu" class="text-danger">TYPES</a> conference
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_TYPES2017.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>22/02/2017<br/>Saclay, France</td>
-      <td>
-        <u>PML2, Semantical Value Restriction & Pointed Subtyping</u><br/>
-        Visit to the <a href="https://team.inria.fr/parsifal/" class="text-danger">Parsifal Team</a> (Inria Saclay)
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Parsifal2017.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>16/02/2017<br/>Marseille, France</td>
-      <td>
-        <u>Proofs of programs and subtyping in PML2</u><br/>
-        <a href="https://www.i2m.univ-amu.fr/Seminaire-Logique-et-Interactions?date_debut=2017-01-28" class="text-danger">Séminaire Logique et Interactions</a> (I2M)
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Marseille2017.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>07/04/2016<br/>Eindhoven, Netherlands</td>
-      <td>
-        <u>A Classical Realizability Model for a Semantical Value Restriction</u><br/>
-        <a href="#Lepigre2016" class="text-danger">Paper</a> presentation at the <a href="https://www.etaps.org/2016/esop" class="text-danger">ESOP</a> conference
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_ESOP2016.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>26/02/2016<br/>Cambridge, UK</td>
-      <td>
-        <u>A call-by-value realizability model for PML</u><br/>
-        <a href="https://talks.cam.ac.uk/talk/index/64148" class="text-danger">Logic and Semantics Seminar</a> (Computer Laboratory)
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Cambridge2016.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>03/12/2015<br/>Lyon, France</td>
-      <td>
-        <u>A call-by-value realizability model for PML</u><br/>
-        <a href="http://chocola.ens-lyon.fr/events/seminaire-2015-12-03/" class="text-danger">Séminaire CHoCoLa</a> (ENS de Lyon)
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_CHoCoLa2015.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>08/01/2015<br/>Val d'Ajol, France</td>
-      <td>
-        <u>Mêler combinateurs et BNF pour l'analyse syntaxique en OCaml</u><br/>
-        Short paper presentation at the <a href="http://jfla.inria.fr/2015/" class="text-danger">JFLA workshop</a>
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_JFLA2015.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>03/12/2014<br/>Montevideo, Uruguay</td>
-      <td>
-        <u>Toward an Adequation Lemma for PML2</u><br/>
-        Visit to the <a href="https://www.fing.edu.uy/~amiquel/logica/index.html" class="text-danger">Equipo de Lógica</a>, Facultad de Ingeniería, Udelar
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_Montevideo2014.pdf" role="button">PDF</a></td>
-    </tr>
-    <tr>
-      <td>13/04/2014<br/>Grenoble, France</td>
-      <td>
-        <u>Realizability, Testing and Game Semantics</u><br/>
-        Talk at the <a href="http://www.gamesemantics.org/galopix" class="text-danger">GaLoP workshop</a>
-      </td>
-      <td><a class="btn btn-info" href="files/slides/Lepigre_GaLoP2014.pdf" role="button">PDF</a></td>
-    </tr>
-
+    {% endfor %}
   </tbody>
 </table>
 </div>

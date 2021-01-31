@@ -1,0 +1,203 @@
+[
+  {
+    "key": "SLKMDG2021",
+    "title": "A Foundational Refinement Type System for C Based on Separation Logic Programming",
+    "authors": [
+      "Michael Sammler",
+      "Rodolphe Lepigre",
+      "Robbert Krebbers",
+      "Kayvan Memarian",
+      "Derek Dreyer",
+      "Deepak Garg"
+    ],
+    "kind": "informal",
+    "where_published": "Preprint (currently under review)",
+    "abstract": [
+      "Given the central role that C continues to play in systems software, and the difficulty of writing safe and correct C code, it remains a grand challenge to develop effective formal methods for verifying C programs. In this paper, we propose a new approach to this problem: a type system we call <b>RefinedC</b>, which combines <em>ownership types</em> (for modular reasoning about shared state and concurrency) with <em>refinement types</em> (for encoding precise invariants on C data types and Hoare-style specifications for C functions).",
+      "RefinedC is both <em>automated</em> (requiring minimal user intervention) and <em>foundational</em> (producing a proof of program correctness in Coq), while at the same time handling a range of low-level programming idioms such as pointer arithmetic. In particular, following the approach of RustBelt, the soundness of the RefinedC type system is justified semantically by interpretation into the Coq-based Iris framework for higher-order concurrent separation logic. However, the typing rules of RefinedC are also designed to be encodable in a new “separation logic programming” language we call <b>Lithium</b>. By restricting to a carefully chosen (yet still expressive) fragment of separation logic, Lithium supports predictable, automatic, goal-directed proof search <em>without backtracking</em>. We demonstrate the effectiveness of RefinedC on a range of representative examples of C code."
+    ],
+    "pdf_url": "https://plv.mpi-sws.org/refinedc/paper.pdf",
+    "urls": [
+      { "name": "Webpage", "url": "https://plv.mpi-sws.org/refinedc/" },
+      { "name": "RefinedC (git repo)", "url": "https://gitlab.mpi-sws.org/iris/refinedc" },
+      { "name": "Appendix", "url": "https://plv.mpi-sws.org/refinedc/appendix.pdf" },
+      { "name": "Artifact", "url": "https://plv.mpi-sws.org/refinedc/the_artifact.tgz" }
+    ]
+  },
+  {
+    "key": "JLPRTDJ2020",
+    "title": "The Future is Ours: Prophecy Variables in Separation Logic",
+    "authors": [
+      "Ralf Jung",
+      "Rodolphe Lepigre",
+      "Gaurav Parthasarathy",
+      "Marianna Rapoport",
+      "Amin Timany",
+      "Derek Dreyer",
+      "Bart Jacobs"
+    ],
+    "kind": "journal",
+    "where_published": "PACMPL 4(POPL): 45:1-45:32 (2020)",
+    "abstract": [
+      "Early in the development of Hoare logic, Owicki and Gries introduced <em>auxiliary variables</em> as a way of encoding information about the <em>history</em> of a program's execution that is useful for verifying its correctness. Over a decade later, Abadi and Lamport observed that it is sometimes also necessary to know in advance what a program will do in the <em>future</em>. To address this need, they proposed <em>prophecy variables</em>, originally as a proof technique for refinement mappings between state machines. However, despite the fact that prophecy variables are a clearly useful reasoning mechanism, there is (surprisingly) almost no work that attempts to integrate them into Hoare logic. In this paper, we present the first account of prophecy variables in a Hoare-style program logic that is flexible enough to verify <em>logical atomicity</em> (a relative of linearizability) for classic examples from the concurrency literature like RDCSS and the Herlihy-Wing queue. Our account is formalized in the Iris framework for separation logic in Coq. It makes essential use of <em>ownership</em> to encode the exclusive right to resolve a prophecy, which in turn enables us to enforce soundness of prophecies with a very simple set of proof rules."
+    ],
+    "dblp_url": "https://dblp.uni-trier.de/rec/journals/pacmpl/JungLPRTDJ20.html",
+    "pdf_url": "files/publications/JLPRTDJ2020.pdf",
+    "urls": [
+      { "name": "Webpage", "url": "https://plv.mpi-sws.org/prophecies/" },
+      { "name": "Artifact", "url": "https://zenodo.org/record/3541918" },
+      { "name": "Video (POPL talk)", "url": "https://youtu.be/6Xhhasl50YU" }
+    ]
+  },
+  {
+    "key": "CLS2019",
+    "title": "Unboxing Mutually Recursive Type Definitions in OCaml",
+    "authors": [
+      "Simon Colin",
+      "Rodolphe Lepigre",
+      "Gabriel Scherer"
+    ],
+    "kind": "conference",
+    "where_published": "Proceedings of JFLA, Les Rousses, France, 30th January to 2nd February 2019",
+    "abstract": [
+      "In modern OCaml, single-argument datatype declarations (variants with a single constructor, records with a single field) can sometimes be “unboxed”. This means that their memory representation is the same as their single argument (omitting the variant or record constructor and an indirection), thus achieving better time and memory efficiency.  However, in the case of generalized/guarded algebraic datatypes (GADTs), unboxing is not always possible due to a subtle fact about the runtime representation of OCaml values. The current correctness check is incomplete, rejecting many valid definitions, in particular those involving mutually-recursive datatype declarations.  In this paper, we explain the notion of <em>separability</em> as a semantic for the unboxing criterion, and propose a set of inference rules to check separability. From these inference rules, we derive a new implementation of the unboxing check that properly supports mutually-recursive definitions."
+    ],
+    "pdf_url": "files/publications/CLS2019.pdf"
+  },
+  {
+    "key": "LepRaf2019",
+    "title": "Practical Subtyping for Curry-Style Languages",
+    "authors": [
+      "Rodolphe Lepigre",
+      "Christophe Raffalli"
+    ],
+    "kind": "journal",
+    "where_published": "ACM Trans. Program. Lang. Syst. 41(1): 5:1-5:58 (2019)",
+    "abstract": [
+      "We present a new, syntax-directed framework for Curry style type-systems with subtyping. It supports a rich set of features, and allows for a reasonably simple theory and implementation. The system we consider has sum and product types, universal and existential quantifiers, inductive and coinductive types. The latter two may carry size invariants that can be used to establish the termination of recursive programs. For example, the termination of quicksort can be derived by showing that partitioning a list does not increase its size. The system deals with complex programs involving mixed induction and coinduction, or even mixed polymorphism and (co-)induction. One of the key ideas is to separate the notion of size from recursion. We do not check the termination of programs directly, but rather show that their (circular) typing proofs are well-founded. Termination is then obtained using a standard (semantic) normalisation proof. To demonstrate the practicality of the system, we provide an implementation accepting all the examples discussed in the paper."
+    ],
+    "dblp_url": "https://dblp.uni-trier.de/rec/journals/toplas/LepigreR19.html",
+    "pdf_url": "files/publications/LepRaf2019.pdf",
+    "urls": [
+      { "name": "Official link", "url": "https://dl.acm.org/citation.cfm?doid=3299867.3285955" },
+      { "name": "[SubML] prototype language", "url": "#SubML" }
+    ]
+  },
+  {
+    "key": "LepRaf2018",
+    "title": "Abstract Representation of Binders in OCaml using the Bindlib Library",
+    "authors": [
+      "Rodolphe Lepigre",
+      "Christophe Raffalli"
+    ],
+    "kind": "conference",
+    "where_published": "LFMTP@FSCD 2018: 42-56",
+    "abstract": [
+      "The Bindlib library for OCaml provides a set of tools for the manipulation of data structures with variable binding. It is very well suited for the representation of abstract syntax trees, and has already been used for the implementation of half a dozen languages and proof assistants (including a new version of the logical framework Dedukti). Bindlib is optimised for fast substitution, and it supports variable renaming. Since the representation of binders is based on higher-order abstract syntax, variable capture cannot arise during substitution. As a consequence, variable names are not updated at substitution time. They can however be explicitly recomputed to avoid “visual capture” (i.e., distinct variables with the same apparent name) when a data structure is displayed."
+    ],
+    "dblp_url": "https://dblp.uni-trier.de/rec/journals/corr/abs-1807-01872.html",
+    "pdf_url": "files/publications/LepRaf2018.pdf",
+    "urls": [
+      { "name": "Official link", "url": "http://eptcs.web.cse.unsw.edu.au/paper.cgi?LFMTP2018.4" },
+      { "name": "[Bindlib] library", "url": "#Bindlib" }
+    ]
+  },
+  {
+    "key": "Lepigre2017PhD",
+    "title": "Semantics and Implementation of an Extension of ML for Proving Programs",
+    "authors": [
+      "Rodolphe Lepigre"
+    ],
+    "kind": "thesis",
+    "where_published": "PhD thesis, Université Savoie Mont Blanc",
+    "abstract": [
+      "In recent years, proof assistant have reached an impressive level of maturity. They have led to the certification of complex programs such as compilers and operating systems. Yet, using a proof assistant requires highly specialised skills and it remains very different from standard programming. To bridge this gap, we aim at designing an ML-style programming language with support for proofs of programs, combining in a single tool the flexibility of ML and the fine specification features of a proof assistant. In other words, the system should be suitable both for programming (in the strongly-typed, functional sense) and for gradually increasing the level of guarantees met by programs, on a by-need basis.",
+      "We thus define and study a call-by-value language whose type system extends higher-order logic with an equality type over untyped programs, a dependent function type, classical logic and subtyping. The combination of call-by-value evaluation, dependent functions and classical logic is known to raise consistency issues. To ensure the correctness of the system (logical consistency and runtime safety), we design a theoretical framework based on Krivine's classical realizability. The construction of the model relies on an essential property linking the different levels of interpretation of types in a novel way.",
+      "We finally demonstrate the expressive power of our system using our prototype implementation, by proving properties of standard programs like the map function on lists or the insertion sort."
+    ],
+    "dblp_url": "https://dblp.uni-trier.de/rec/phd/hal/Lepigre17.html",
+    "pdf_url": "files/publications/Lepigre2017PhD.pdf",
+    "urls": [
+      { "name": "Official link", "url": "https://tel.archives-ouvertes.fr/tel-01682908" },
+      { "name": "[PML2] prototype language", "url": "#PML2" }
+    ]
+  },
+  {
+    "key": "Lepigre2017",
+    "title": "PML₂: Integrated Program Verification in ML",
+    "authors": [
+      "Rodolphe Lepigre"
+    ],
+    "kind": "conference",
+    "where_published": "TYPES 2017: 4:1-4:27",
+    "abstract": [
+      "We present the PML₂ language, which provides a uniform environment for programming, and for proving properties of programs in an ML-like setting. The language is Curry-style and call-by-value, it provides a control operator (interpreted in terms of classical logic), it supports general recursion and a very general form of (implicit, non-coercive) subtyping. In the system, equational properties of programs are expressed using two new type formers, and they are proved by constructing terminating programs. Although proofs rely heavily on equational reasoning, equalities are exclusively managed by the type-checker. This means that the user only has to choose which equality to use, and not where to use it, as is usually done in mathematical proofs. In the system, writing proofs mostly amounts to applying lemmas (possibly recursive function calls), and to perform case analyses (pattern matchings)."
+    ],
+    "dblp_url": "https://dblp.uni-trier.de/rec/conf/types/Lepigre17.html",
+    "pdf_url": "files/publications/Lepigre2017.pdf",
+    "urls": [
+      { "name": "Official link", "url": "http://drops.dagstuhl.de/opus/volltexte/2018/10052/" },
+      { "name": "[PML2] prototype language", "url": "#PML2" }
+    ]
+  },
+  {
+    "key": "Lepigre2016",
+    "title": "A Classical Realizability Model for a Semantical Value Restriction",
+    "authors": [
+      "Rodolphe Lepigre"
+    ],
+    "kind": "conference",
+    "where_published": "ESOP 2016: 476-502",
+    "abstract": [
+      "We present a new type system with support for proofs of programs in a call-by-value language with control operators. The proof mechanism relies on observational equivalence of (untyped) programs. It appears in two type constructors, which are used for specifying program properties and for encoding dependent products.  The main challenge arises from the lack of expressiveness of dependent products due to the value restriction. To circumvent this limitation we relax the syntactic restriction and only require equivalence to a value.  The consistency of the system is obtained semantically by constructing a classical realizability model in three layers (values, stacks and terms)."
+    ],
+    "dblp_url": "https://dblp.uni-trier.de/rec/conf/esop/Lepigre16.html",
+    "pdf_url": "files/publications/Lepigre2016.pdf",
+    "urls": [
+      { "name": "Official link", "url": "https://link.springer.com/chapter/10.1007/978-3-662-49498-1_19" }
+    ]
+  },
+  {
+    "key": "LepRaf2015",
+    "title": "Mêler combinateurs, continuations et EBNF pour une analyse syntaxique efficace en OCaml (version longue)",
+    "authors": [
+      "Rodolphe Lepigre",
+      "Christophe Raffalli"
+    ],
+    "kind": "informal",
+    "where_published": "JFLA 2015 (short paper)",
+    "abstract": [
+      "Le cœur de DeCaP, objet de cet article, est une bibliothèque de combinateurs d'analyseurs syntaxiques. Ils sont la cible de la traduction d'une syntaxe EBNF, sans récursion à gauche, que l'on a ajoutée à OCaml. Les parseurs ainsi définis sont des expressions de première classe.",
+      "Pour plus d'efficacité, nos combinateurs utilisent des continuations et inspectent l'ensemble des premiers caractères acceptés par une grammaire afin d'élaguer l'arbre des possibilités.  Les continuations donnent naturellement la sémantique complète d'EBNF et DeCaP peut donc gérer les grammaires ambigues. De plus, des combinateurs inspirés de la notion de continuation délimitée permettent d'optimiser certaines grammaires en restreignant la sémantique. Notre parseur d’OCaml est en moyenne deux fois plus rapide que celui de Camlp4 et cinq fois plus lent que l'original.",
+      "DeCaP fournit également un système de quotation et d'anti-quotation similaire à celui de Camlp4 et permet ainsi d'étendre la syntaxe d'OCaml. Notre outil se veut plus simple et moins contraignant que ce dernier et n'impose, par exemple, aucune analyse lexicale."
+    ],
+    "pdf_url": "files/publications/LepRaf2015.pdf"
+  },
+  {
+    "key": "Lepigre2013M2",
+    "title": "A Classical Realizability Interpretation of Judgement Testing",
+    "authors": [
+      "Rodolphe Lepigre"
+    ],
+    "kind": "informal",
+    "where_published": "Masters thesis, Université Savoie Mont Blanc",
+    "abstract": [
+      "A notion of test for intuitionistic type theory has recently been introduced by Peter Dybjer and his collaborators. It is meant to be the foundation for automatic testing tools that could be implemented in proof assistants such as Coq or Agda. Such tools would provide a way to test, at any time during the construction of a proof, if the current goal can be completed in the context. The failure of such a test would mean that the goal is impossible to prove, and its success would corroborate the partial result.",
+      "In this report, we investigate the possibility of extending the testing procedure to classical systems. We propose an interpretation of the testing procedure in terms of Krivine's classical realizability. Finally we show that the notion of test is correct, in the sense that a judgement is valid if and only if it passes every possible test."
+    ],
+    "pdf_url": "files/publications/Lepigre2013M2.pdf"
+  },
+  {
+    "key": "Lepigre2012M1",
+    "title": "Testing judgements of type theory",
+    "authors": [
+      "Rodolphe Lepigre"
+    ],
+    "kind": "informal",
+    "where_published": "Internship report, Chalmers Tekniska Hőgskola",
+    "abstract": [
+      "We investigate a testing framework for type theory. We first describe the Krivine Abstract Machine (KAM), and the Testing KAM (TKAM) which is a modified version of the KAM that allows the testing of terms of the PCF language. This follows notes by Pierre Clairambault. We use two versions of the TKAM. The first one is restricted to the Finite System T language and the second one has lazy natural numbers. We then use the virtual machines as the central part of a testing procedure for the typing of terms.  This work is an implementation of certain aspects of the testing manual for intuitionistic type theory described in Peter Dybjer's paper “Program Testing and Constructive Validity”."
+    ],
+    "pdf_url": "files/publications/Lepigre2012M1.pdf"
+  }
+]
