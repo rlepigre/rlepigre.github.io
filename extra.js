@@ -3,7 +3,14 @@ $('body').scrollspy({
 });
 
 $(window).on('scroll', function() {
-  if ($(this).scrollTop() > 200) {
+  var w = window.innerWidth
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
+  if (w < 450) {
+    $('.navbar-brand').addClass('small-brand')
+  } else if (w < 650) {
+    $('.navbar-brand').removeClass('small-brand')
+  } else if ($(this).scrollTop() > 200) {
     $('.navbar-brand').addClass('small-brand')
   } else {
     $('.navbar-brand').removeClass('small-brand')
