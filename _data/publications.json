@@ -12,6 +12,10 @@
     ],
     "kind": "conference",
     "where_published": "PLDI 2021 (accepted for publication)",
+    "awards": [
+      "a PLDI 2021 Distinguished Paper Award",
+      "the PLDI 2021 Distinguished Artifact Award"
+    ],
     "abstract": [
       "Given the central role that C continues to play in systems software, and the difficulty of writing safe and correct C code, it remains a grand challenge to develop effective formal methods for verifying C programs. In this paper, we propose a new approach to this problem: a type system we call <b>RefinedC</b>, which combines <em>ownership types</em> (for modular reasoning about shared state and concurrency) with <em>refinement types</em> (for encoding precise invariants on C data types and Hoare-style specifications for C functions).",
       "RefinedC is both <em>automated</em> (requiring minimal user intervention) and <em>foundational</em> (producing a proof of program correctness in Coq), while at the same time handling a range of low-level programming idioms such as pointer arithmetic. In particular, following the approach of RustBelt, the soundness of the RefinedC type system is justified semantically by interpretation into the Coq-based Iris framework for higher-order concurrent separation logic. However, the typing rules of RefinedC are also designed to be encodable in a new “separation logic programming” language we call <b>Lithium</b>. By restricting to a carefully chosen (yet still expressive) fragment of separation logic, Lithium supports predictable, automatic, goal-directed proof search <em>without backtracking</em>. We demonstrate the effectiveness of RefinedC on a range of representative examples of C code."

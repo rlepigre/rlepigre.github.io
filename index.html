@@ -68,9 +68,15 @@ layout: default
   <div class="card-header bg-{{ p.kind }}">
   {% endif %}
     <u>{{ p.title }}</u>
-    <span class="float-md-right">[{{ p.key }}]</span><br/>
-    {{ p.authors | join: ", " }}<br/>
+    <span class="float-md-right">[{{ p.key }}]</span>
+    <br/>
+    {{ p.authors | join: ", " }}
+    <br/>
     {{ p.where_published }}
+    {% for a in p.awards %}
+    <br/>
+    <b>Recipient of {{ a }}.</b>
+    {% endfor %}
   </div>
   <div class="card-body pb-0">
     <p class="collapse show text-justify" id="collapse_abs_{{ p.key }}">
