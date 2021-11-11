@@ -1,5 +1,28 @@
 [
   {
+    "key": "LSMKDS2021",
+    "title": "VIP: Verifying Real-World C Idioms with Integer-Pointer Casts",
+    "authors": [
+      "Rodolphe Lepigre",
+      "Michael Sammler",
+      "Kayvan Memarian",
+      "Robbert Krebbers",
+      "Derek Dreyer",
+      "Peter Sewell"
+    ],
+    "kind": "journal",
+    "where_published": "POPL 2022 (accepted for publication)",
+    "abstract": [
+      "Systems code often requires fine-grained control over memory layout and pointers, expressed using  low-level (<em>e.g.</em>, bitwise) operations on pointer values. Since these operations go beyond what basic pointer arithmetic in C allows, they are performed with the help of <em>integer-pointer casts</em>. Prior work has explored increasingly realistic memory object models for C that account for the desired semantics of integer-pointer casts while also being sound w.r.t. compiler optimisations, culminating in PNVI, the preferred memory object model in ongoing discussions within the ISO WG14 C standards committee. However, its complexity makes it an unappealing target for verification, and no tools currently exist to verify C programs under PNVI.",
+      "In this paper, we introduce VIP, a new memory object model aimed at supporting C verification. VIP sidesteps the complexities of PNVI with a simple but  effective idea: a new construct that lets programmers express the intended provenances of integer-pointer casts explicitly. At the same time, we prove VIP compatible with PNVI, thus enabling verification on top of VIP to benefit from PNVI's validation with respect to practice.  In particular, we build a verification tool, RefinedC-VIP, for verifying programs under VIP semantics. As the name suggests, RefinedC-VIP extends the recently developed RefinedC tool, which is automated yet also produces foundational proofs in Coq. We evaluate RefinedC-VIP on a range of systems-code idioms, and validate VIP's expressiveness via an implementation in the Cerberus C semantics."
+    ],
+    "pdf_url": "https://iris-project.org/pdfs/2022-popl-vip.pdf",
+    "urls": [
+      { "name": "RefinedC (git repo)", "url": "https://gitlab.mpi-sws.org/iris/refinedc" },
+      { "name": "Artifact and appendix", "url": "https://doi.org/10.5281/zenodo.5662349" }
+    ]
+  },
+  {
     "key": "SLKMDG2021",
     "title": "RefinedC: Automating the Foundational Verification of C Code with Refined Ownership Types",
     "authors": [
@@ -11,7 +34,7 @@
       "Deepak Garg"
     ],
     "kind": "conference",
-    "where_published": "PLDI 2021 (accepted for publication)",
+    "where_published": "PLDI 2021",
     "awards": [
       "a PLDI 2021 Distinguished Paper Award",
       "the PLDI 2021 Distinguished Artifact Award"
@@ -20,6 +43,7 @@
       "Given the central role that C continues to play in systems software, and the difficulty of writing safe and correct C code, it remains a grand challenge to develop effective formal methods for verifying C programs. In this paper, we propose a new approach to this problem: a type system we call <b>RefinedC</b>, which combines <em>ownership types</em> (for modular reasoning about shared state and concurrency) with <em>refinement types</em> (for encoding precise invariants on C data types and Hoare-style specifications for C functions).",
       "RefinedC is both <em>automated</em> (requiring minimal user intervention) and <em>foundational</em> (producing a proof of program correctness in Coq), while at the same time handling a range of low-level programming idioms such as pointer arithmetic. In particular, following the approach of RustBelt, the soundness of the RefinedC type system is justified semantically by interpretation into the Coq-based Iris framework for higher-order concurrent separation logic. However, the typing rules of RefinedC are also designed to be encodable in a new “separation logic programming” language we call <b>Lithium</b>. By restricting to a carefully chosen (yet still expressive) fragment of separation logic, Lithium supports predictable, automatic, goal-directed proof search <em>without backtracking</em>. We demonstrate the effectiveness of RefinedC on a range of representative examples of C code."
     ],
+    "dblp_url": "https://dblp.uni-trier.de/rec/conf/pldi/SammlerLKMD021.html",
     "pdf_url": "https://plv.mpi-sws.org/refinedc/paper.pdf",
     "urls": [
       { "name": "Webpage", "url": "https://plv.mpi-sws.org/refinedc/" },
