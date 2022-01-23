@@ -19,7 +19,8 @@
     "pdf_url": "https://iris-project.org/pdfs/2022-popl-vip.pdf",
     "urls": [
       { "name": "RefinedC (git repo)", "url": "https://gitlab.mpi-sws.org/iris/refinedc" },
-      { "name": "Artifact and appendix", "url": "https://doi.org/10.5281/zenodo.5662349" }
+      { "name": "Artifact and appendix", "url": "https://doi.org/10.5281/zenodo.5662349" },
+      { "name": "Video (POPL talk)", "url": "https://youtu.be/jrMxY8TnAoc" }
     ]
   },
   {

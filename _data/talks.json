@@ -1,5 +1,19 @@
 [
   {
+    "date": "21/01/2022",
+    "where": "Philadelphia, USA (online)",
+    "title": "VIP: Verifying Real-World C Idioms with Integer-Pointer Casts",
+    "paper_presentation": {
+      "paper_key": "LSMKDS2022",
+      "conference_name": "POPL conference",
+      "conference_url": "https://popl22.sigplan.org"
+    },
+    "urls": [
+      { "name": "Slides", "url": "https://docs.google.com/presentation/d/1GjmetEb1SWwCXIj6i5xpbxzYuZpMiCDnloJDfhKdmsI/edit?usp=sharing" },
+      { "name": "Video", "url": "https://youtu.be/jrMxY8TnAoc" }
+    ]
+  },
+  {
     "date": "22/01/2020",
     "where": "New Orleans, USA",
     "title": "The Future is Ours - Prophecy Variables in Separation Logic",
